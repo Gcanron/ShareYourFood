@@ -1,6 +1,6 @@
 package sopra.ShareYourFood.repository;
 
-import java.util.List;
+public interface IRepository {
 
 public interface IRepository<T, PK>  {
 
