@@ -1,6 +1,6 @@
 package sopra.ShareYourFood.repository;
 
-public interface IRepository {
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
