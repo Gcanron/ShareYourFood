@@ -8,15 +8,15 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
-import sopra.ShareYourFood.model.Produit;
-import sopra.ShareYourFood.repository.IProduitRepository;
+import sopra.ShareYourFood.model.Adresse;
+import sopra.ShareYourFood.model.Don;
+import sopra.ShareYourFood.repository.IAdresseRepository;
 
-
-public class ProduitRepositoryJpa implements IProduitRepository {
+public class AdresseRepositoryJpa implements IAdresseRepository {
 
 	@Override
-	public List<Produit> findAll() {
-		List<Produit> produits = new ArrayList<Produit>();
+	public List<Adresse> findAll() {
+		List<Adresse> adresses = new ArrayList<Adresse>();
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -26,9 +26,9 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Produit> query = em.createQuery("select e from Produit e ", Produit.class);
+			TypedQuery<Adresse> query = em.createQuery("select a from Adresse a", Adresse.class);
 
-			produits = query.getResultList();
+			adresses = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -43,12 +43,12 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			}
 		}
 
-		return produits;
+		return adresses;		
 	}
 
 	@Override
-	public Produit findById(Long id) {
-		Produit produit = null;
+	public Adresse findById(Long id) {
+		Adresse adresse = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -58,7 +58,7 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			produit = em.find(Produit.class, id);
+			adresse = em.find(Adresse.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -73,7 +73,8 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			}
 		}
 
-		return produit;
+		return adresse;
 	}
-
 }
+
+

@@ -1,4 +1,8 @@
 package sopra.ShareYourFood.repository;
+import java.util.List;
+
+import java.util.List;
+
 
 import java.util.List;
 
@@ -34,6 +38,7 @@ public interface IRepository<T, PK>  {
 		}
 		return obj;
 	}
+	
 	public default void delete(T obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -55,6 +60,5 @@ public interface IRepository<T, PK>  {
 		}
 	}
 }
-
 
 
