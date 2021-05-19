@@ -9,9 +9,9 @@ import sopra.ShareYourFood.Application;
 
 public interface IRepository<T, PK>  {
 
-	List<T> findAll();
+	public List<T> findAll();
 
-	T findById(PK id);
+	public T findById(PK id);
 
 	public default T save(T obj) {
 		EntityManager em = null;
