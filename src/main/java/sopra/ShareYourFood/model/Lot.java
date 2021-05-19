@@ -1,10 +1,16 @@
 package sopra.ShareYourFood.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,15 +19,34 @@ public class Lot {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Column(name = "nom")
 	private String nom;
+	@Column(name = "volume")
 	private Long volume;
+	@Column(name = "dt_peremption_lot")
 	private Date dtPeremptionLot;
+	@Column(name = "photo")
 	private String photo;
+	@Column(name = "statut")
 	private Statut statut;
+	@ManyToOne
+	@JoinColumn(name = "don_id")
 	private Don don;
-
+	@OneToMany(mappedBy = "lot")
+	private List<Demande> demandes = new ArrayList<Demande>();
+	@OneToMany(mappedBy = "lot")
+	private List<ProduitLot> produitLots = new ArrayList<ProduitLot>();
+	
 	public Lot() {
 		super();
+	}
+
+	public List<Demande> getDemandes() {
+		return demandes;
+	}
+
+	public void setDemandes(List<Demande> demandes) {
+		this.demandes = demandes;
 	}
 
 	public Long getId() {
