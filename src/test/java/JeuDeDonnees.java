@@ -1,3 +1,4 @@
+import sopra.ShareYourFood.model.Adresse;
 import sopra.ShareYourFood.model.Association;
 import sopra.ShareYourFood.model.Categorie;
 import sopra.ShareYourFood.model.Entreprise;
@@ -60,6 +61,8 @@ public class JeuDeDonnees {
 		sarahCze.setMail("sarah.caze@hotmail.com");
 		sarahCze.setMessagerieActivation(true);
 		sarahCze.setEntite(sarah);
+
+		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
 
 	}
 
