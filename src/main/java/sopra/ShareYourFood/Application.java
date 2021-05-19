@@ -17,6 +17,7 @@ import sopra.ShareYourFood.repository.jpa.DemandeRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.DonRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.EntiteRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.LotRepositoryJpa;
+import sopra.ShareYourFood.repository.jpa.MessageRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.ProduitRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.UtilisateurRepositoryJpa;
 
