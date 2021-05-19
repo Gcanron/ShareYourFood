@@ -8,14 +8,14 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
-import sopra.ShareYourFood.model.Utilisateur;
-import sopra.ShareYourFood.repository.IUtilisateurRepository;
+import sopra.ShareYourFood.model.Message;
+import sopra.ShareYourFood.repository.IMessageRepository;
 
-public class UtilisateurRepositoryJpa implements IUtilisateurRepository {
+public class MessageRepositoryJpa implements IMessageRepository {
 
 	@Override
-	public List<Utilisateur> findAll() {
-		List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
+	public List<Message> findAll() {
+		List<Message> messages = new ArrayList<Message>();
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -25,9 +25,9 @@ public class UtilisateurRepositoryJpa implements IUtilisateurRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Utilisateur> query = em.createQuery("select u from Utilisateur u", Utilisateur.class);
+			TypedQuery<Message> query = em.createQuery("select m from Message m", Message.class);
 
-			utilisateurs = query.getResultList();
+			messages = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -42,12 +42,12 @@ public class UtilisateurRepositoryJpa implements IUtilisateurRepository {
 			}
 		}
 
-		return utilisateurs;
+		return messages;
 	}
 
 	@Override
-	public Utilisateur findById(Long id) {
-		Utilisateur utilisateur = null;
+	public Message findById(Long id) {
+		Message message = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -57,7 +57,7 @@ public class UtilisateurRepositoryJpa implements IUtilisateurRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			utilisateur = em.find(Utilisateur.class, id);
+			message = em.find(Message.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -72,7 +72,7 @@ public class UtilisateurRepositoryJpa implements IUtilisateurRepository {
 			}
 		}
 
-		return utilisateur;
+		return message;
 	}
 
 }
