@@ -2,10 +2,22 @@ package sopra.ShareYourFood.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
-@Embeddable
+
+@Entity
+
 public class Adresse {
 	
+	@Id
+	@GeneratedValue
+	private Long id;
 	@Column(name = "rue", length = 255)
 	private String rue;
 	@Column(name = "complement", length = 255)
@@ -15,6 +27,12 @@ public class Adresse {
 	@Column(name = "ville", length = 255)
 	private String ville;
 	
+	@ManyToOne
+	@JoinColumn(name = "entite_id")
+	private Entite entite;
+	
+	@OneToOne(mappedBy = "adresse")
+	private Don don;
 	
 	public Adresse() {
 		super();
