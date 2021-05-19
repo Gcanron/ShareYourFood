@@ -1,60 +1,78 @@
-package sopra.ShareYourFood.repository;
+package sopra.ShareYourFood.repository.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
+import sopra.ShareYourFood.model.Message;
+import sopra.ShareYourFood.repository.IMessageRepository;
 
-public interface IRepository<T, PK>  {
+public class MessageRepositoryJpa implements IMessageRepository {
 
-	public List<T> findAll();
+	@Override
+	public List<Message> findAll() {
+		List<Message> messages = new ArrayList<Message>();
 
-	public T findById(PK id);
-
-	public default T save(T obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
+
 		try {
 			em = Application.getInstance().getEmf().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-			obj = em.merge(obj);
+
+			TypedQuery<Message> query = em.createQuery("select m from Message m", Message.class);
+
+			messages = query.getResultList();
+
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
+
 		} finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-		return obj;
+
+		return messages;
 	}
-	public default void delete(T obj) {
+
+	@Override
+	public Message findById(Long id) {
+		Message message = null;
+
 		EntityManager em = null;
 		EntityTransaction tx = null;
+
 		try {
 			em = Application.getInstance().getEmf().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-			em.remove(em.merge(obj));
+
+			message = em.find(Message.class, id);
+
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
+
 		} finally {
 			if (em != null) {
 				em.close();
 			}
 		}
+
+		return message;
 	}
+
 }
-
-
-
