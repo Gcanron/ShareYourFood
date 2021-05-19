@@ -4,12 +4,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import sopra.ShareYourFood.Application;
+import sopra.ShareYourFood.repository.IAdresseRepository;
 import sopra.ShareYourFood.repository.IDemandeRepository;
 import sopra.ShareYourFood.repository.IDonRepository;
 import sopra.ShareYourFood.repository.IEntiteRepository;
 import sopra.ShareYourFood.repository.ILotRepository;
+import sopra.ShareYourFood.repository.IMessageRepository;
 import sopra.ShareYourFood.repository.IProduitRepository;
 import sopra.ShareYourFood.repository.IUtilisateurRepository;
+import sopra.ShareYourFood.repository.jpa.AdresseRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.DemandeRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.DonRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.EntiteRepositoryJpa;
@@ -28,7 +31,8 @@ public class Application {
 	private final ILotRepository lotRepo = new LotRepositoryJpa();
 	private final IProduitRepository produitRepo = new ProduitRepositoryJpa();
 	private final IUtilisateurRepository utilisateurRepo = new UtilisateurRepositoryJpa();
-	
+	private final IMessageRepository messageRepo = new MessageRepositoryJpa();
+	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
 	
 	private Application() {
 
