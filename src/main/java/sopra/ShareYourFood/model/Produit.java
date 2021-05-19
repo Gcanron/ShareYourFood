@@ -1,19 +1,25 @@
 package sopra.ShareYourFood.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Produit")
+
 public class Produit {
 	@Id
 	@Column(name = "nom")
 	private String nom;
 	@Column(name = "type")
 	private Type type;
-	private ProduitLot produitLot;
+	@OneToMany(mappedBy = "produit")
+	private List<ProduitLot> produitLots = new ArrayList<ProduitLot>();
 
 	public Produit() {
 		super();
@@ -35,12 +41,13 @@ public class Produit {
 		this.type = type;
 	}
 
-	public ProduitLot getProduitLot() {
-		return produitLot;
+	public List<ProduitLot> getProduitLots() {
+		return produitLots;
 	}
 
-	public void setProduitLot(ProduitLot produitLot) {
-		this.produitLot = produitLot;
+	public void setProduitLots(List<ProduitLot> produitLots) {
+		this.produitLots = produitLots;
 	}
+
 
 }
