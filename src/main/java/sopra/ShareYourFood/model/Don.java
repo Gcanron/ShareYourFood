@@ -85,6 +85,31 @@ public class Don {
 		this.destinataire = destinataire;
 	}
 
+
+	public Entite getEntite() {
+		return entite;
+	}
+
+	public void setEntite(Entite entite) {
+		this.entite = entite;
+	}
+
+	public List<Lot> getLot() {
+		return lot;
+	}
+
+	public void setLot(List<Lot> lot) {
+		this.lot = lot;
+	}
+
+	public Adresse getAdresse() {
+		return adresse;
+	}
+
+	public void setAdresse(Adresse adresse) {
+		this.adresse = adresse;
+	}
+
 	@Override
 	public String toString() {
 		return "Don [id=" + id + ", dateDeMiseEnLigne=" + dateDeMiseEnLigne + ", creneau=" + creneau + ", commentaire="
