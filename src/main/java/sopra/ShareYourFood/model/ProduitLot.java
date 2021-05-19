@@ -2,23 +2,35 @@ package sopra.ShareYourFood.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name = "Produit_lot")
-@IdClass(ProduitLotId.class)
+@Table(name = "Produit_lot",uniqueConstraints = @UniqueConstraint(columnNames = { "produit_nom","lot_id"}))
 public class ProduitLot {
 	@Id
+	@GeneratedValue
+	private Long id;
+	@Column(name = "dtperemption")
+	private Date dtPeremption;
+	@Column(name = "quantite")
+	private Long quantite;
+	@ManyToOne
+	@JoinColumn(name = "produit_nom")
 	private Produit produit;
-	@Id
+	@ManyToOne
+	@JoinColumn(name = "lot_id")
 	private Lot lot;
 	
-	private Date dtPeremption;
-	private Long quantite;
+
 	
 	
 	
@@ -50,46 +62,6 @@ public class ProduitLot {
 	public void setQuantite(Long quantite) {
 		this.quantite = quantite;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((dtPeremption == null) ? 0 : dtPeremption.hashCode());
-		result = prime * result + ((lot == null) ? 0 : lot.hashCode());
-		result = prime * result + ((produit == null) ? 0 : produit.hashCode());
-		result = prime * result + ((quantite == null) ? 0 : quantite.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProduitLot other = (ProduitLot) obj;
-		if (dtPeremption == null) {
-			if (other.dtPeremption != null)
-				return false;
-		} else if (!dtPeremption.equals(other.dtPeremption))
-			return false;
-		if (lot == null) {
-			if (other.lot != null)
-				return false;
-		} else if (!lot.equals(other.lot))
-			return false;
-		if (produit == null) {
-			if (other.produit != null)
-				return false;
-		} else if (!produit.equals(other.produit))
-			return false;
-		if (quantite == null) {
-			if (other.quantite != null)
-				return false;
-		} else if (!quantite.equals(other.quantite))
-			return false;
-		return true;
-	}
+
 	
 }
