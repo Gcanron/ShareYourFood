@@ -1,8 +1,17 @@
 package sopra.ShareYourFood.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("Particulier")
 public class Particulier extends Entite {
 
+	@Column(name = "prenom", length = 45)
 	private String prenom;
+
+	@Column(name = "age")
 	private Integer age;
 
 	public Particulier() {

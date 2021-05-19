@@ -1,8 +1,17 @@
 package sopra.ShareYourFood.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("Association")
 public class Association extends Entite {
 
+	@Column(name = "numeroAssociation", length = 45)
 	private String numeroAssociation;
+
+	@Column(name = "justificatif")
 	private String justificatif;
 
 	public Association() {
