@@ -1,8 +1,20 @@
 package sopra.ShareYourFood.model;
 
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
+@Entity
+@DiscriminatorValue("Entreprise")
 public class Entreprise extends Entite {
 
+	@Column(name = "prenom", length = 45)
 	private String siret;
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "categorie", length = 45)
 	private Categorie categorie;
 
 	public Entreprise() {

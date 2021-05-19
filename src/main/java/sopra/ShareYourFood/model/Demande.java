@@ -4,13 +4,33 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="demande")
 public class Demande {
 	
+	@Id
+	@GeneratedValue
 	private Long id;
+	@Column(name="dt_demande")
 	private Date dtDemande;
+	@Column(name="statut_notif")
 	private StatutNotif statutNotif;
+	@ManyToOne
+	@JoinColumn(name = "entite_id")
 	private Entite entite;
+	@ManyToOne
+	@JoinColumn(name = "lot_id")
 	private Lot lot;
+	@OneToMany(mappedBy = "demande")
 	private List<Message> message = new ArrayList<Message>();
 	
 	public Demande() {
