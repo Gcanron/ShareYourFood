@@ -1,63 +1,79 @@
-package sopra.ShareYourFood.repository;
-import java.util.List;
+package sopra.ShareYourFood.repository.jpa;
 
-import java.util.List;
-
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
+import sopra.ShareYourFood.model.Adresse;
+import sopra.ShareYourFood.model.Don;
+import sopra.ShareYourFood.repository.IAdresseRepository;
 
-public interface IRepository<T, PK>  {
+public class AdresseRepositoryJpa implements IAdresseRepository {
 
-	public List<T> findAll();
+	@Override
+	public List<Adresse> findAll() {
+		List<Adresse> adresses = new ArrayList<Adresse>();
 
-	public T findById(PK id);
-
-	public default T save(T obj) {
 		EntityManager em = null;
 		EntityTransaction tx = null;
+
 		try {
 			em = Application.getInstance().getEmf().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-			obj = em.merge(obj);
+
+			TypedQuery<Adresse> query = em.createQuery("select a from Adresse a", Adresse.class);
+
+			adresses = query.getResultList();
+
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
+
 		} finally {
 			if (em != null) {
 				em.close();
 			}
 		}
-		return obj;
+
+		return adresses;		
 	}
-	
-	public default void delete(T obj) {
+
+	@Override
+	public Adresse findById(Long id) {
+		Adresse adresse = null;
+
 		EntityManager em = null;
 		EntityTransaction tx = null;
+
 		try {
 			em = Application.getInstance().getEmf().createEntityManager();
 			tx = em.getTransaction();
 			tx.begin();
-			em.remove(em.merge(obj));
+
+			adresse = em.find(Adresse.class, id);
+
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			if (tx != null && tx.isActive()) {
 				tx.rollback();
 			}
+
 		} finally {
 			if (em != null) {
 				em.close();
 			}
 		}
+
+		return adresse;
 	}
 }
 
