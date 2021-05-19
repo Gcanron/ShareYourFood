@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
-import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.ProduitLot;
 import sopra.ShareYourFood.repository.IProduitLotRepository;
 
