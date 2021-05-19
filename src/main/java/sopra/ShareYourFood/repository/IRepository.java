@@ -2,13 +2,14 @@ package sopra.ShareYourFood.repository;
 
 import java.util.List;
 
-public class IRepository<T, PK>  {
+public interface IRepository<T, PK>  {
 
-	List<T> findAll();
+	public List<T> findAll();
 
-	T findById(PK id);
+	public T findById(PK id);
 
-	T save(T obj);
+	public T save(T obj);
 
-	void delete(T obj);
-}
+	public void delete(T obj);
+	}
+
