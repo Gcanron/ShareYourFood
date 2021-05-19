@@ -1,10 +1,26 @@
 package sopra.ShareYourFood.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="Message")
 public class Message {
 	
+	@Id
+	@GeneratedValue
 	private Long id;
+	@Column(name = "contenu")
 	private String contenu;
+	@Column(name = "donneur")
 	private Boolean donneur;
+	@ManyToOne
+	@JoinColumn(name="demande_id")
 	private Demande demande;
 	
 	public Message() {
