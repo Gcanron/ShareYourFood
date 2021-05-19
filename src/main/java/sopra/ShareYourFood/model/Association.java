@@ -1,6 +1,6 @@
 package sopra.ShareYourFood.model;
 
-public class Association {
+public class Association extends Entite {
 
 	private String numeroAssociation;
 	private String justificatif;

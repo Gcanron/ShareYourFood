@@ -1,6 +1,6 @@
 package sopra.ShareYourFood.model;
 
-public class Entreprise {
+public class Entreprise extends Entite {
 
 	private String siret;
 	private Categorie categorie;
