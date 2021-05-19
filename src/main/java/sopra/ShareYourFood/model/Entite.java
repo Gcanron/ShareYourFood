@@ -1,13 +1,23 @@
 package sopra.ShareYourFood.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "Entite")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "type")
 public class Entite {
 	@Id
 	@GeneratedValue
@@ -18,6 +28,19 @@ public class Entite {
 	private boolean donneur;
 	@Column(name = "beneficiaire", length = 255)
 	private boolean beneficiaire;
+	
+	@OneToMany(mappedBy = "entite")
+	private List<Don> don = new ArrayList<Don>();
+	
+	@OneToMany(mappedBy = "entite")
+	private List<Adresse> adresse = new ArrayList<Adresse>();
+	
+	@OneToMany(mappedBy = "entite")
+	private List<Demande> demande = new ArrayList<Demande>();
+	
+	@OneToMany(mappedBy = "entite")
+	private List<Utilisateur> utilsateur = new ArrayList<Utilisateur>();
+	
 	
 	public Entite() {
 		super();
