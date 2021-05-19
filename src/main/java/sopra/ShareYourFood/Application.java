@@ -12,6 +12,10 @@ import sopra.ShareYourFood.repository.IProduitRepository;
 import sopra.ShareYourFood.repository.IUtilisateurRepository;
 import sopra.ShareYourFood.repository.jpa.DemandeRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.DonRepositoryJpa;
+import sopra.ShareYourFood.repository.jpa.EntiteRepositoryJpa;
+import sopra.ShareYourFood.repository.jpa.LotRepositoryJpa;
+import sopra.ShareYourFood.repository.jpa.ProduitRepositoryJpa;
+import sopra.ShareYourFood.repository.jpa.UtilisateurRepositoryJpa;
 
 public class Application {
 	
@@ -36,10 +40,42 @@ public class Application {
 		}
 
 		return instance;
-	}
-
+	}	
+	
 	public EntityManagerFactory getEmf() {
 		return emf;
 	}
 
+	public IDemandeRepository getDemandeRepo() {
+		return demandeRepo;
+	}
+
+	public IDonRepository getDonRepo() {
+		return donRepo;
+	}
+
+	public IEntiteRepository getEntiteRepo() {
+		return entiteRepo;
+	}
+
+	public ILotRepository getLotRepo() {
+		return lotRepo;
+	}
+
+	public IProduitRepository getProduitRepo() {
+		return produitRepo;
+	}
+
+	public IUtilisateurRepository getUtilisateurRepo() {
+		return utilisateurRepo;
+	}
+
+	public static void setInstance(Application instance) {
+		Application.instance = instance;
+	}
+
+	
+	
+	
+	
 }
