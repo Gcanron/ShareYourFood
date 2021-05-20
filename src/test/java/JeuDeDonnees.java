@@ -1,14 +1,21 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import sopra.ShareYourFood.model.Adresse;
 import sopra.ShareYourFood.model.Association;
 import sopra.ShareYourFood.model.Categorie;
 import sopra.ShareYourFood.model.Entreprise;
+import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Particulier;
+import sopra.ShareYourFood.model.Produit;
+import sopra.ShareYourFood.model.ProduitLot;
+import sopra.ShareYourFood.model.Type;
 import sopra.ShareYourFood.model.Utilisateur;
 
 public class JeuDeDonnees {
 
 	public static void main(String[] args) {
-
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
 		Particulier aubeline = new Particulier("aubeline", 28);
 		aubeline.setNom("PECQUE");
 		aubeline.setDonneur(true);
@@ -63,7 +70,30 @@ public class JeuDeDonnees {
 		sarahCze.setEntite(sarah);
 
 		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
+		
+		Produit pain = new Produit();
+		pain.setNom("pain");
+		pain.setType(Type.valueOf("PAIN_PATISSERIE"));
 
+		Produit yaourt = new Produit();
+		yaourt.setNom("yaourt");
+		yaourt.setType(Type.valueOf("FRAIS"));
+		
+		Lot lotNumber1 = new Lot();
+		lotNumber1.setNom("Yaourt à gogo");
+		lotNumber1.setVolume(400L);
+		lotNumber1.setPhoto("C:/mesPhotos");
+		
+		ProduitLot yaourt_lot1 = new ProduitLot();
+		yaourt_lot1.setLot(lotNumber1);
+		yaourt_lot1.setProduit(yaourt);
+		yaourt_lot1.setQuantite(1000L);
+		try {
+			yaourt_lot1.setDtPeremption(sdf.parse("22/05/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 }
