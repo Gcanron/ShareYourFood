@@ -94,18 +94,7 @@ public class Demande {
 		this.message = message;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Demande [id=");
-		builder.append(id);
-		builder.append(", dtDemande=");
-		builder.append(dtDemande);
-		builder.append(", statutNotif=");
-		builder.append(statutNotif);
-		builder.append("]");
-		return builder.toString();
-	}
+	
 
 	
 	
