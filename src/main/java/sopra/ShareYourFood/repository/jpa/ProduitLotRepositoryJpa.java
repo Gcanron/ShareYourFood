@@ -8,15 +8,15 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
-import sopra.ShareYourFood.model.Produit;
-import sopra.ShareYourFood.repository.IProduitRepository;
+import sopra.ShareYourFood.model.Lot;
+import sopra.ShareYourFood.model.ProduitLot;
+import sopra.ShareYourFood.repository.IProduitLotRepository;
 
-
-public class ProduitRepositoryJpa implements IProduitRepository {
+public class ProduitLotRepositoryJpa implements IProduitLotRepository{
 
 	@Override
-	public List<Produit> findAll() {
-		List<Produit> produits = new ArrayList<Produit>();
+	public List<ProduitLot> findAll() {
+		List<ProduitLot> produitlots = new ArrayList<ProduitLot>();
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -26,9 +26,9 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Produit> query = em.createQuery("select e from Produit e ", Produit.class);
+			TypedQuery<ProduitLot> query = em.createQuery("select e from Produit_lot e ", ProduitLot.class);
 
-			produits = query.getResultList();
+			produitlots = query.getResultList();
 
 			tx.commit();
 		} catch (Exception e) {
@@ -43,12 +43,12 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			}
 		}
 
-		return produits;
+		return produitlots;
 	}
 
 	@Override
-	public Produit findById(Long id) {
-		Produit produit = null;
+	public ProduitLot findById(Long id) {
+		ProduitLot produitLot = null;
 
 		EntityManager em = null;
 		EntityTransaction tx = null;
@@ -58,7 +58,7 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			produit = em.find(Produit.class, id);
+			produitLot = em.find(ProduitLot.class, id);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -73,7 +73,9 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 			}
 		}
 
-		return produit;
+		return produitLot;
+	
+	}
 	}
 
-}
+
