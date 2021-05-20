@@ -97,22 +97,7 @@ public class Utilisateur {
 		this.entite = entite;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Utilisateur [id=");
-		builder.append(id);
-		builder.append(", pseudo=");
-		builder.append(pseudo);
-		builder.append(", mail=");
-		builder.append(mail);
-		builder.append(", motDePasse=");
-		builder.append(motDePasse);
-		builder.append(", messagerieActivation=");
-		builder.append(messagerieActivation);
-		builder.append("]");
-		return builder.toString();
-	}
+	
 	
 	
 	

@@ -35,6 +35,11 @@ public class JeuDeDonnees {
 		sarah.setNom("CAZE");
 		sarah.setDonneur(true);
 		sarah.setBeneficiaire(false);
+		
+		Particulier regis = new Particulier("regis", 25);
+		sarah.setNom("SIMON");
+		sarah.setDonneur(false);
+		sarah.setBeneficiaire(true);
 
 		Association CroixRouge = new Association("FR123456789", "justificatif1");
 		CroixRouge.setNom("La Croix Rouge");
@@ -78,6 +83,13 @@ public class JeuDeDonnees {
 		sarahCze.setMail("sarah.caze@hotmail.com");
 		sarahCze.setMessagerieActivation(true);
 		sarahCze.setEntite(sarah);
+		
+		Utilisateur regisSimon = new Utilisateur();
+		sarahCze.setPseudo("ReSi");
+		sarahCze.setMotDePasse("qsdfgh");
+		sarahCze.setMail("regis.simon@hotmail.com");
+		sarahCze.setMessagerieActivation(true);
+		sarahCze.setEntite(regis);
 
 		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
 		
@@ -86,6 +98,7 @@ public class JeuDeDonnees {
 		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
 		Adresse adrDonPourTous = new Adresse("277 boulevard Leon Blum", "Bâtiment C", "75004", "Paris");
 		Adresse adrLeclerc = new Adresse("50 avenue Gutemberg", "Zone commerciale Soleil", "33700", "Mérignac");
+		Adresse adrRegis = new Adresse("3 avenue Molière", null, "33000", "Bordeaux");
 		
 		
 		
@@ -135,15 +148,15 @@ public class JeuDeDonnees {
 		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
 		demandeDonPourTous.setEntite(DonPourTous);
 		
-		Demande demandeSarah = new Demande();
+		Demande demandeRegis = new Demande();
 		try {
-			demandeSarah.setDtDemande(sdf.parse("01/06/2021"));
+			demandeRegis.setDtDemande(sdf.parse("01/06/2021"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		demandeSarah.setLot(chocolat);
-		demandeSarah.setStatutNotif(StatutNotif.ACCEPTER);
-		demandeSarah.setEntite(sarah);
+		demandeRegis.setLot(chocolat);
+		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
+		demandeRegis.setEntite(regis);
 		
 		sopra.ShareYourFood.model.Message messageDonPourTousLeclerc = new sopra.ShareYourFood.model.Message();
 		messageDonPourTousLeclerc.setContenu("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.");
@@ -156,15 +169,15 @@ public class JeuDeDonnees {
 		messageLeclercDonPourTous.setDonneur(true);
 		
 		
-		sopra.ShareYourFood.model.Message messageSarah = new sopra.ShareYourFood.model.Message();
-		messageSarah.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
-		messageSarah.setDemande(demandeSarah);
-		messageSarah.setDonneur(false);
+		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
+		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
+		messageRegis.setDemande(demandeRegis);
+		messageRegis.setDonneur(false);
 		
-		sopra.ShareYourFood.model.Message messageLeclercSarah = new sopra.ShareYourFood.model.Message();
-		messageLeclercSarah.setContenu("Bien sur");
-		messageLeclercSarah.setDemande(demandeSarah);
-		messageLeclercSarah.setDonneur(true);
+		sopra.ShareYourFood.model.Message messageLeclercRegis = new sopra.ShareYourFood.model.Message();
+		messageLeclercRegis.setContenu("Bien sur");
+		messageLeclercRegis.setDemande(demandeRegis);
+		messageLeclercRegis.setDonneur(true);
 		
 
 	}
