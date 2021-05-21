@@ -17,13 +17,14 @@ import sopra.ShareYourFood.repository.jpa.DemandeRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.DonRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.EntiteRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.LotRepositoryJpa;
+import sopra.ShareYourFood.repository.jpa.MessageRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.ProduitRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.UtilisateurRepositoryJpa;
 
 public class Application {
 	
 	private static Application instance = null;
-	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareYourFood-jpa");
+	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("share-your-food");
 	
 	private final IDemandeRepository demandeRepo = new DemandeRepositoryJpa();
 	private final IDonRepository donRepo = new DonRepositoryJpa();
