@@ -37,13 +37,12 @@ public class Demande {
 		super();
 	}
 	
-	public Demande(Date dtDemande, StatutNotif statutNotif, Entite entite, Lot lot, List<Message> message) {
+	public Demande(Date dtDemande, StatutNotif statutNotif, Entite entite, Lot lot) {
 		super();
 		this.dtDemande = dtDemande;
 		this.statutNotif = statutNotif;
 		this.entite = entite;
 		this.lot = lot;
-		this.message = message;
 	}
 
 	public Long getId() {
