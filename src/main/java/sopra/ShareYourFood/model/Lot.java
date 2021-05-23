@@ -28,7 +28,7 @@ public class Lot {
 	@Column(name = "photo")
 	private String photo;
 	@Column(name = "statut")
-	private Statut statut;
+	private StatutReservation statutReservation;
 	@ManyToOne
 	@JoinColumn(name = "don_id")
 	private Don don;
@@ -89,12 +89,12 @@ public class Lot {
 		this.photo = photo;
 	}
 
-	public Statut getStatut() {
-		return statut;
+	public StatutReservation getStatut() {
+		return statutReservation;
 	}
 
-	public void setStatut(Statut statut) {
-		this.statut = statut;
+	public void setStatut(StatutReservation statutReservation) {
+		this.statutReservation = statutReservation;
 	}
 
 	public Don getDon() {

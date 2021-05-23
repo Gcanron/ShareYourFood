@@ -77,4 +77,40 @@ public class DonRepositoryJpa implements IDonRepository {
 		return don;
 	}
 	
+	public List<Don> findAllJeRecois(String ville, String entite) {
+		
+		List<Don> dons = new ArrayList<Don>();
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			TypedQuery<Don> query = em.createQuery("select d from Don d where d.adresse.ville = :entite.adresse.ville and d.destinataire = :entite.type and :entite.beneficiaire = true", Don.class);
+			
+			query.setParameter("ville", ville);
+			query.setParameter("entite", entite);
+
+			dons = query.getResultList();
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return dons;	
+		
+	}
+	
 }
