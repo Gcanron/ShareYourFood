@@ -14,8 +14,8 @@ import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Message;
 import sopra.ShareYourFood.model.Particulier;
 import sopra.ShareYourFood.model.Role;
+import sopra.ShareYourFood.model.Statut;
 import sopra.ShareYourFood.model.StatutNotif;
-import sopra.ShareYourFood.model.StatutReservation;
 import sopra.ShareYourFood.model.Utilisateur;
 import sopra.ShareYourFood.repository.IDemandeRepository;
 import sopra.ShareYourFood.repository.IEntiteRepository;
@@ -331,7 +331,7 @@ public class TestSeif {
 		}
 		chocolat.setPhoto("djvbv/didz/yugi");
 		chocolat.setVolume((long) 50);
-		chocolat.setStatut(StatutReservation.DISPONIBLE);
+		chocolat.setStatut(Statut.DISPONIBLE);
 		
 		Lot pain = new Lot();
 		pain.setNom("Pain");
@@ -342,7 +342,7 @@ public class TestSeif {
 		}
 		pain.setPhoto("bkbkbk/dhvb/ihcv");
 		pain.setVolume((long) 25);
-		pain.setStatut(StatutReservation.DISPONIBLE);
+		pain.setStatut(Statut.DISPONIBLE);
 	
 		
 		Particulier regis = new Particulier("regis", 25);
@@ -428,7 +428,7 @@ public class TestSeif {
 		}
 		chocolat.setPhoto("djvbv/didz/yugi");
 		chocolat.setVolume((long) 50);
-		chocolat.setStatut(StatutReservation.DISPONIBLE);
+		chocolat.setStatut(Statut.DISPONIBLE);
 		
 		Lot pain = new Lot();
 		pain.setNom("Pain");
@@ -439,7 +439,7 @@ public class TestSeif {
 		}
 		pain.setPhoto("bkbkbk/dhvb/ihcv");
 		pain.setVolume((long) 25);
-		pain.setStatut(StatutReservation.DISPONIBLE);
+		pain.setStatut(Statut.DISPONIBLE);
 	
 		
 		Particulier regis = new Particulier("regis", 25);
@@ -541,7 +541,7 @@ public class TestSeif {
 		}
 		chocolat.setPhoto("djvbv/didz/yugi");
 		chocolat.setVolume((long) 50);
-		chocolat.setStatut(StatutReservation.DISPONIBLE);
+		chocolat.setStatut(Statut.DISPONIBLE);
 		
 		Lot pain = new Lot();
 		pain.setNom("Pain");
@@ -552,7 +552,7 @@ public class TestSeif {
 		}
 		pain.setPhoto("bkbkbk/dhvb/ihcv");
 		pain.setVolume((long) 25);
-		pain.setStatut(StatutReservation.DISPONIBLE);
+		pain.setStatut(Statut.DISPONIBLE);
 	
 		
 		Particulier regis = new Particulier("regis", 25);
