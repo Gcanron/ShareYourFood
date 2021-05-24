@@ -85,11 +85,11 @@ public class JeuDeDonnees {
 		sarahCze.setEntite(sarah);
 		
 		Utilisateur regisSimon = new Utilisateur();
-		sarahCze.setPseudo("ReSi");
-		sarahCze.setMotDePasse("qsdfgh");
-		sarahCze.setMail("regis.simon@hotmail.com");
-		sarahCze.setMessagerieActivation(true);
-		sarahCze.setEntite(regis);
+		regisSimon.setPseudo("ReSi");
+		regisSimon.setMotDePasse("qsdfgh");
+		regisSimon.setMail("regis.simon@hotmail.com");
+		regisSimon.setMessagerieActivation(true);
+		regisSimon.setEntite(regis);
 
 		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
 		
@@ -133,7 +133,7 @@ public class JeuDeDonnees {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		pain.setPhoto("djvbv/didz/yugi");
+		pain.setPhoto("cqdcvi/fsfsf");
 		pain.setVolume((long) 25);
 		pain.setStatut(Statut.DISPONIBLE);
 		pain.setDon(donLeclerc);

@@ -340,7 +340,7 @@ public class TestSeif {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		pain.setPhoto("bkbkbk/dhvb/ihcv");
+		pain.setPhoto("cqdcvi/fsfsf");
 		pain.setVolume((long) 25);
 		pain.setStatut(Statut.DISPONIBLE);
 	
