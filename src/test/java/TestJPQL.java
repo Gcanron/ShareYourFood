@@ -27,11 +27,10 @@ public class TestJPQL {
 		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
 		
 		
-		List<Don> dons = donRepo.findAllJeRecois("Bordeaux");
+		List<Don> donFind = donRepo.findAllJeRecois("Nantes");
 		
-		for (Entite entites : dons.size()) {
-			System.out.println(entites.getNom());
-		}
+		System.out.println(donFind);
+		
 			
 		
 	}
