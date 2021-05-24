@@ -37,13 +37,12 @@ public class Demande {
 		super();
 	}
 	
-	public Demande(Date dtDemande, StatutNotif statutNotif, Entite entite, Lot lot, List<Message> message) {
+	public Demande(Date dtDemande, StatutNotif statutNotif, Entite entite, Lot lot) {
 		super();
 		this.dtDemande = dtDemande;
 		this.statutNotif = statutNotif;
 		this.entite = entite;
 		this.lot = lot;
-		this.message = message;
 	}
 
 	public Long getId() {
@@ -94,18 +93,7 @@ public class Demande {
 		this.message = message;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Demande [id=");
-		builder.append(id);
-		builder.append(", dtDemande=");
-		builder.append(dtDemande);
-		builder.append(", statutNotif=");
-		builder.append(statutNotif);
-		builder.append("]");
-		return builder.toString();
-	}
+	
 
 	
 	

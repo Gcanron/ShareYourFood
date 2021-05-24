@@ -1,7 +1,7 @@
 package sopra.ShareYourFood.model;
 
-public enum Statut {
-	
+public enum StatutReservation {
+
 	EN_PREPARATION, DISPONIBLE, RESERVE, DONNE
 
 }

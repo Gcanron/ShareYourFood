@@ -27,11 +27,10 @@ public class Message {
 		super();
 	}
 	
-	public Message(String contenu, Boolean donneur, Demande demande) {
+	public Message(String contenu, Boolean donneur) {
 		super();
 		this.contenu = contenu;
 		this.donneur = donneur;
-		this.demande = demande;
 	}
 
 	public Long getId() {
@@ -66,20 +65,7 @@ public class Message {
 		this.demande = demande;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Message [id=");
-		builder.append(id);
-		builder.append(", contenu=");
-		builder.append(contenu);
-		builder.append(", donneur=");
-		builder.append(donneur);
-		builder.append(", demande=");
-		builder.append(demande);
-		builder.append("]");
-		return builder.toString();
-	}
+
 	
 	
 	
