@@ -13,7 +13,6 @@ import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Particulier;
 import sopra.ShareYourFood.model.Statut;
 import sopra.ShareYourFood.model.StatutNotif;
-import sopra.ShareYourFood.model.StatutReservation;
 import sopra.ShareYourFood.model.Utilisateur;
 import sopra.ShareYourFood.repository.IAdresseRepository;
 import sopra.ShareYourFood.repository.IDemandeRepository;

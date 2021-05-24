@@ -1,4 +1,8 @@
+import java.util.List;
+
 import sopra.ShareYourFood.Application;
+import sopra.ShareYourFood.model.Don;
+import sopra.ShareYourFood.model.Entite;
 import sopra.ShareYourFood.repository.IAdresseRepository;
 import sopra.ShareYourFood.repository.IDemandeRepository;
 import sopra.ShareYourFood.repository.IDonRepository;
@@ -23,7 +27,12 @@ public class TestJPQL {
 		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
 		
 		
+		List<Don> dons = donRepo.findAllJeRecois("Bordeaux");
 		
+		for (Entite entites : dons.size()) {
+			System.out.println(entites.getNom());
+		}
+			
 		
 	}
 
