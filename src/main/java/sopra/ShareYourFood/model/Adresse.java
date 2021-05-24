@@ -93,6 +93,15 @@ public class Adresse {
 	public void setVille(String ville) {
 		this.ville = ville;
 	}
+	
+
+	public Entite getEntite() {
+		return entite;
+	}
+
+	public void setEntite(Entite entite) {
+		this.entite = entite;
+	}
 
 	@Override
 	public String toString() {

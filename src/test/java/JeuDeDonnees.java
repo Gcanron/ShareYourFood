@@ -37,9 +37,9 @@ public class JeuDeDonnees {
 		sarah.setBeneficiaire(false);
 		
 		Particulier regis = new Particulier("regis", 25);
-		sarah.setNom("SIMON");
-		sarah.setDonneur(false);
-		sarah.setBeneficiaire(true);
+		regis.setNom("SIMON");
+		regis.setDonneur(false);
+		regis.setBeneficiaire(true);
 
 		Association CroixRouge = new Association("FR123456789", "justificatif1");
 		CroixRouge.setNom("La Croix Rouge");
@@ -85,11 +85,11 @@ public class JeuDeDonnees {
 		sarahCze.setEntite(sarah);
 		
 		Utilisateur regisSimon = new Utilisateur();
-		sarahCze.setPseudo("ReSi");
-		sarahCze.setMotDePasse("qsdfgh");
-		sarahCze.setMail("regis.simon@hotmail.com");
-		sarahCze.setMessagerieActivation(true);
-		sarahCze.setEntite(regis);
+		regisSimon.setPseudo("ReSi");
+		regisSimon.setMotDePasse("qsdfgh");
+		regisSimon.setMail("regis.simon@hotmail.com");
+		regisSimon.setMessagerieActivation(true);
+		regisSimon.setEntite(regis);
 
 		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
 		
@@ -127,13 +127,13 @@ public class JeuDeDonnees {
 		chocolat.setDon(donLeclerc);
 		
 		Lot pain = new Lot();
-		chocolat.setNom("Pain");
+		pain.setNom("Pain");
 		try {
-			chocolat.setDtPeremptionLot(sdf.parse("20/05/2023"));
+			pain.setDtPeremptionLot(sdf.parse("20/05/2023"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		pain.setPhoto("djvbv/didz/yugi");
+		pain.setPhoto("cqdcvi/fsfsf");
 		pain.setVolume((long) 25);
 		pain.setStatut(Statut.DISPONIBLE);
 		pain.setDon(donLeclerc);

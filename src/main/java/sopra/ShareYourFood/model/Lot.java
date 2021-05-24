@@ -89,6 +89,8 @@ public class Lot {
 		this.photo = photo;
 	}
 
+	
+
 	public Statut getStatut() {
 		return statut;
 	}

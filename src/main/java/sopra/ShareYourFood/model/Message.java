@@ -27,11 +27,10 @@ public class Message {
 		super();
 	}
 	
-	public Message(String contenu, Boolean donneur, Demande demande) {
+	public Message(String contenu, Boolean donneur) {
 		super();
 		this.contenu = contenu;
 		this.donneur = donneur;
-		this.demande = demande;
 	}
 
 	public Long getId() {
