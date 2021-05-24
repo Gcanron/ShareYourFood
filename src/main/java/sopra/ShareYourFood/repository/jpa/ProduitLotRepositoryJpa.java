@@ -25,7 +25,7 @@ public class ProduitLotRepositoryJpa implements IProduitLotRepository{
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<ProduitLot> query = em.createQuery("select e from Produit_lot e ", ProduitLot.class);
+			TypedQuery<ProduitLot> query = em.createQuery("select e from ProduitLot e ", ProduitLot.class);
 
 			produitlots = query.getResultList();
 

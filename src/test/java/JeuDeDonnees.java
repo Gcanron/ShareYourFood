@@ -1,9 +1,5 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.protobuf.Message;
 
 import sopra.ShareYourFood.model.Adresse;
 import sopra.ShareYourFood.model.Association;
@@ -14,8 +10,11 @@ import sopra.ShareYourFood.model.Don;
 import sopra.ShareYourFood.model.Entreprise;
 import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Particulier;
+import sopra.ShareYourFood.model.Produit;
+import sopra.ShareYourFood.model.ProduitLot;
 import sopra.ShareYourFood.model.Statut;
 import sopra.ShareYourFood.model.StatutNotif;
+import sopra.ShareYourFood.model.Type;
 import sopra.ShareYourFood.model.Utilisateur;
 
 
@@ -180,9 +179,9 @@ public class JeuDeDonnees {
 		messageLeclercRegis.setDonneur(true);
 		
 		
-		Produit pain = new Produit();
-		pain.setNom("pain");
-		pain.setType(Type.valueOf("PAIN_PATISSERIE"));
+		Produit croissant = new Produit();
+		croissant.setNom("pain");
+		croissant.setType(Type.valueOf("PAIN_PATISSERIE"));
 
 		Produit yaourt = new Produit();
 		yaourt.setNom("yaourt");
