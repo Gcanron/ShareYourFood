@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Entite")
+@Table(name = "entite")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 public class Entite {
@@ -30,16 +30,16 @@ public class Entite {
 	private boolean beneficiaire;
 	
 	@OneToMany(mappedBy = "entite")
-	private List<Don> don = new ArrayList<Don>();
+	private List<Don> dons = new ArrayList<Don>();
 	
 	@OneToMany(mappedBy = "entite")
-	private List<Adresse> adresse = new ArrayList<Adresse>();
+	private List<Adresse> adresses = new ArrayList<Adresse>();
 	
 	@OneToMany(mappedBy = "entite")
-	private List<Demande> demande = new ArrayList<Demande>();
+	private List<Demande> demandes = new ArrayList<Demande>();
 	
 	@OneToMany(mappedBy = "entite")
-	private List<Utilisateur> utilsateur = new ArrayList<Utilisateur>();
+	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 	
 	
 	public Entite() {
