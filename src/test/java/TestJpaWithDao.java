@@ -11,6 +11,7 @@ import sopra.ShareYourFood.model.Don;
 import sopra.ShareYourFood.model.Entreprise;
 import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Particulier;
+import sopra.ShareYourFood.model.Statut;
 import sopra.ShareYourFood.model.StatutNotif;
 import sopra.ShareYourFood.model.StatutReservation;
 import sopra.ShareYourFood.repository.IAdresseRepository;
@@ -126,7 +127,7 @@ public class TestJpaWithDao {
 		}
 		chocolat.setPhoto("djvbv/didz/yugi");
 		chocolat.setVolume((long) 50);
-		chocolat.setStatut(StatutReservation.DISPONIBLE);
+		chocolat.setStatut(Statut.DISPONIBLE);
 		chocolat.setDon(donLeclerc);
 		
 		Lot pain = new Lot();
@@ -138,7 +139,7 @@ public class TestJpaWithDao {
 		}
 		pain.setPhoto("djvbv/didz/yugi");
 		pain.setVolume((long) 25);
-		pain.setStatut(StatutReservation.DISPONIBLE);
+		pain.setStatut(Statut.DISPONIBLE);
 		pain.setDon(donLeclerc);
 		
 		lotRepo.save(pain);
