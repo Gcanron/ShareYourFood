@@ -133,7 +133,7 @@ public class JeuDeDonnees {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		pain.setPhoto("djvbv/didz/yugi");
+		pain.setPhoto("cqdcvi/fsfsf");
 		pain.setVolume((long) 25);
 		pain.setStatut(Statut.DISPONIBLE);
 		pain.setDon(donLeclerc);

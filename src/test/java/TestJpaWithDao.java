@@ -107,6 +107,7 @@ public class TestJpaWithDao {
 		regisSimon.setMessagerieActivation(true);
 		
 		//ADRESSES
+		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
 		Adresse adrSarahCze = new Adresse("75 rue d'Athènes", "bis", "33000", "Bordeaux");
 		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
 		Adresse adrDonPourTous = new Adresse("277 boulevard Leon Blum", "Bâtiment C", "75004", "Paris");
@@ -139,13 +140,13 @@ public class TestJpaWithDao {
 		chocolat.setStatut(Statut.DISPONIBLE);
 		
 		Lot pain = new Lot();
-		chocolat.setNom("Pain");
+		pain.setNom("Pain");
 		try {
-			chocolat.setDtPeremptionLot(sdf.parse("20/05/2023"));
+			pain.setDtPeremptionLot(sdf.parse("20/05/2023"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		pain.setPhoto("djvbv/didz/yugi");
+		pain.setPhoto("cqdcvi/fsfsf");
 		pain.setVolume((long) 25);
 		pain.setStatut(Statut.DISPONIBLE);
 		
@@ -250,12 +251,14 @@ public class TestJpaWithDao {
 		donLeclerc = donRepo.save(donLeclerc);
 		
 		//ADRESSES
+		adrAube = adresseRepo.save(adrAube);
 		adrSarahCze = adresseRepo.save(adrSarahCze);
 		adrCroixRouge = adresseRepo.save(adrCroixRouge);
 		adrDonPourTous = adresseRepo.save(adrDonPourTous);
 		adrLeclerc = adresseRepo.save(adrLeclerc);
 		adrRegis = adresseRepo.save(adrRegis);
 		
+		aubeline=(Particulier) entiteRepo.save(aubeline);
 		sarah = (Particulier) entiteRepo.save(sarah);
 		regis = (Particulier) entiteRepo.save(regis);
 		CroixRouge = (Association) entiteRepo.save(CroixRouge);
@@ -263,22 +266,30 @@ public class TestJpaWithDao {
 		Leclerc = (Entreprise) entiteRepo.save(Leclerc);
 		
 		//LIEN ADRESSES ENTITES
+		adrAube.setEntite(aubeline);
 		adrSarahCze.setEntite(sarah);
 		adrCroixRouge.setEntite(CroixRouge);
 		adrDonPourTous.setEntite(DonPourTous);
 		adrLeclerc.setEntite(Leclerc);
 		adrRegis.setEntite(regis);
 		
+		adrAube = adresseRepo.save(adrAube);
 		adrSarahCze = adresseRepo.save(adrSarahCze);
 		adrCroixRouge = adresseRepo.save(adrCroixRouge);
 		adrDonPourTous = adresseRepo.save(adrDonPourTous);
 		adrLeclerc = adresseRepo.save(adrLeclerc);
 		adrRegis = adresseRepo.save(adrRegis);
 		
-		//LIEN ADRESSES DONS
+		//LIEN DONS ADRESSES 
 		donLeclerc.setAdresse(adrLeclerc);
 		
 		adrLeclerc = adresseRepo.save(adrLeclerc);
+		donLeclerc = donRepo.save(donLeclerc);
+		
+		//LIEN DON ENTITE
+		donLeclerc.setEntite(Leclerc);
+		
+		donLeclerc = donRepo.save(donLeclerc);
 		
 		//LOT
 		chocolat = lotRepo.save(chocolat);
