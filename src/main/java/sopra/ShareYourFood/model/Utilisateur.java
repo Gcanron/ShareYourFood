@@ -26,7 +26,7 @@ public class Utilisateur {
 	@Column(name = "role")
 	private Role role;
 	@ManyToOne
-	@JoinColumn(name = "utilisateur_id")
+	@JoinColumn(name = "entite_id")
 	private Entite entite;
 	
 	public Utilisateur() {
@@ -97,22 +97,7 @@ public class Utilisateur {
 		this.entite = entite;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Utilisateur [id=");
-		builder.append(id);
-		builder.append(", pseudo=");
-		builder.append(pseudo);
-		builder.append(", mail=");
-		builder.append(mail);
-		builder.append(", motDePasse=");
-		builder.append(motDePasse);
-		builder.append(", messagerieActivation=");
-		builder.append(messagerieActivation);
-		builder.append("]");
-		return builder.toString();
-	}
+	
 	
 	
 	

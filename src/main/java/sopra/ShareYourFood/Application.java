@@ -24,7 +24,7 @@ import sopra.ShareYourFood.repository.jpa.UtilisateurRepositoryJpa;
 public class Application {
 	
 	private static Application instance = null;
-	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("ShareYourFood-jpa");
+	private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("share-your-food");
 	
 	private final IDemandeRepository demandeRepo = new DemandeRepositoryJpa();
 	private final IDonRepository donRepo = new DonRepositoryJpa();
@@ -73,6 +73,15 @@ public class Application {
 
 	public IUtilisateurRepository getUtilisateurRepo() {
 		return utilisateurRepo;
+	}
+	
+
+	public IMessageRepository getMessageRepo() {
+		return messageRepo;
+	}
+
+	public IAdresseRepository getAdresseRepo() {
+		return adresseRepo;
 	}
 
 	public static void setInstance(Application instance) {
