@@ -107,6 +107,10 @@ public class Lot {
 		this.don = don;
 	}
 
+	public void addProduitLot(ProduitLot produitLot) {
+		this.produitLots.add(produitLot);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -4,4 +4,6 @@ import sopra.ShareYourFood.model.Entite;
 
 public interface IEntiteRepository extends IRepository<Entite, Long>{
 
+	public Entite findByNom(String nom);
+
 }

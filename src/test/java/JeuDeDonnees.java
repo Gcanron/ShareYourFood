@@ -1,9 +1,5 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.protobuf.Message;
 
 import sopra.ShareYourFood.model.Adresse;
 import sopra.ShareYourFood.model.Association;
@@ -92,14 +88,22 @@ public class JeuDeDonnees {
 		sarahCze.setEntite(regis);
 
 		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
-		
+		adrAube.setEntite(aubeline);
 		
 		Adresse adrSarahCze = new Adresse("75 rue d'Athènes", "bis", "33000", "Bordeaux");
-		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
-		Adresse adrDonPourTous = new Adresse("277 boulevard Leon Blum", "Bâtiment C", "75004", "Paris");
-		Adresse adrLeclerc = new Adresse("50 avenue Gutemberg", "Zone commerciale Soleil", "33700", "Mérignac");
-		Adresse adrRegis = new Adresse("3 avenue Molière", null, "33000", "Bordeaux");
+		adrSarahCze.setEntite(sarah);
 		
+		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
+		adrCroixRouge.setEntite(CroixRouge);
+
+		Adresse adrDonPourTous = new Adresse("277 boulevard Leon Blum", "Bâtiment C", "75004", "Paris");
+		adrDonPourTous.setEntite(DonPourTous);
+
+		Adresse adrLeclerc = new Adresse("50 avenue Gutemberg", "Zone commerciale Soleil", "33700", "Mérignac");
+		adrLeclerc.setEntite(Leclerc);
+
+		Adresse adrRegis = new Adresse("3 avenue Molière", null, "33000", "Bordeaux");
+		adrRegis.setEntite(regis);
 		
 		
 		Don donLeclerc = new Don();
