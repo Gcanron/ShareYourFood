@@ -194,7 +194,7 @@ public class TestSeif {
 		Assert.assertEquals("co@hotmail.com", cocoDu06.getMail());
 		Assert.assertEquals(false, cocoDu06.getMessagerieActivation());
 		Assert.assertEquals(Role.ADMINISTRATEUR, cocoDu06.getRole());
-		Assert.assertEquals(CroixRouge, cocoDu06.getEntite());
+		Assert.assertEquals(CroixRouge.getId(), cocoDu06.getEntite().getId());
 		
 		utilisateurRepo.delete(cocoDu06);
 		entiteRepo.delete(Leclerc);
@@ -416,8 +416,9 @@ public class TestSeif {
 			e.printStackTrace();
 		}
 		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
+	
 		
-		
+	
 		Lot chocolat = new Lot();
 		chocolat.setNom("Chocolat");
 		try {
@@ -453,10 +454,124 @@ public class TestSeif {
 		
 		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
 		demandeRegis = demandeRepo.save(demandeRegis);
+
 		
 		chocolat = lotRepo.save(chocolat);
 		pain = lotRepo.save(pain);
 		DonPourTous = (Association) entiteRepo.save(DonPourTous);
+		regis = (Particulier) entiteRepo.save(regis);
+		
+		demandeDonPourTous.setLot(pain);
+		demandeDonPourTous.setEntite(DonPourTous);
+		
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
+
+		
+		
+		try {
+			demandeDonPourTous.setDtDemande(sdf.parse("26/12/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeDonPourTous.setStatutNotif(StatutNotif.ARCHIVER);
+		
+		
+		demandeDonPourTous.setLot(chocolat);
+		demandeDonPourTous.setEntite(regis);
+		
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
+
+		
+		
+		
+		try {
+			Assert.assertEquals(sdf.parse("26/12/2021"), demandeDonPourTous.getDtDemande());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Assert.assertEquals(StatutNotif.ARCHIVER, demandeDonPourTous.getStatutNotif());
+		Assert.assertEquals(chocolat, demandeDonPourTous.getLot());
+		Assert.assertEquals(regis.getId(), demandeDonPourTous.getEntite().getId());
+		
+		
+		List<Demande> demandes = demandeRepo.findAll();
+		Assert.assertEquals(2, demandes.size());
+		
+		demandeRepo.delete(demandeRegis);
+		demandeRepo.delete(demandeDonPourTous);
+		lotRepo.delete(pain);
+		lotRepo.delete(chocolat);
+		entiteRepo.delete(DonPourTous);
+		entiteRepo.delete(regis);
+			
+	}
+	
+	
+	@Test
+	public void demandeFindAll() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
+		ILotRepository lotRepo = Application.getInstance().getLotRepo();
+		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
+		
+		Demande demandeDonPourTous = new Demande();
+		try {
+			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		Demande demandeRegis = new Demande();
+		try {
+			demandeRegis.setDtDemande(sdf.parse("01/06/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		
+		Lot chocolat = new Lot();
+		chocolat.setNom("Chocolat");
+		try {
+			chocolat.setDtPeremptionLot(sdf.parse("05/07/2022"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		chocolat.setPhoto("djvbv/didz/yugi");
+		chocolat.setVolume((long) 50);
+		chocolat.setStatut(StatutReservation.DISPONIBLE);
+		
+		Lot pain = new Lot();
+		pain.setNom("Pain");
+		try {
+			pain.setDtPeremptionLot(sdf.parse("20/05/2023"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		pain.setPhoto("bkbkbk/dhvb/ihcv");
+		pain.setVolume((long) 25);
+		pain.setStatut(StatutReservation.DISPONIBLE);
+	
+		
+		Particulier regis = new Particulier("regis", 25);
+		regis.setNom("SIMON");
+		regis.setDonneur(false);
+		regis.setBeneficiaire(true);
+		
+		Association DonPourTous = new Association("FR987654321", "justificatif2");
+		DonPourTous.setNom("Dons pour tous");
+		DonPourTous.setDonneur(false);
+		DonPourTous.setBeneficiaire(true);
+		
+		
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
+		demandeRegis = demandeRepo.save(demandeRegis);
+		
+		chocolat = lotRepo.save(chocolat);
+		pain = lotRepo.save(pain);
+		DonPourTous =(Association) entiteRepo.save(DonPourTous);
 		regis = (Particulier) entiteRepo.save(regis);
 		
 		demandeDonPourTous.setLot(pain);
@@ -468,237 +583,249 @@ public class TestSeif {
 		demandeRegis = demandeRepo.save(demandeRegis);
 		
 		
-		try {
-			demandeDonPourTous.setDtDemande(sdf.parse("26/12/2021"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		demandeDonPourTous.setStatutNotif(StatutNotif.ARCHIVER);
-		
-		try {
-			demandeRegis.setDtDemande(sdf.parse("10/07/2021"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		demandeRegis.setStatutNotif(StatutNotif.REFUSER);
-		
-		
-		demandeDonPourTous.setLot(chocolat);
-		demandeDonPourTous.setEntite(regis);
-		demandeRegis.setLot(pain);
-		demandeRegis.setEntite(DonPourTous);
-		
-		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
-		demandeRegis = demandeRepo.save(demandeRegis);
-		
-		
-		
-		try {
-			Assert.assertEquals(sdf.parse("26/12/2021"), demandeDonPourTous.getDtDemande());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		Assert.assertEquals(StatutNotif.ARCHIVER, demandeDonPourTous.getStatutNotif());
-		Assert.assertEquals(chocolat, demandeDonPourTous.getLot());
-		Assert.assertEquals(regis, demandeDonPourTous.getEntite());
-		
 		
 		List<Demande> demandes = demandeRepo.findAll();
 		Assert.assertEquals(2, demandes.size());
 		
-//		demandeRepo.delete(demandeDonPourTous);
-//		demandeRepo.delete(demandeRegis);
-//		lotRepo.delete(pain);
-//		lotRepo.delete(chocolat);
-//		entiteRepo.delete(DonPourTous);
-//		entiteRepo.delete(regis);
-			
+		demandeRepo.delete(demandeDonPourTous);
+		demandeRepo.delete(demandeRegis);
+		lotRepo.delete(pain);
+		lotRepo.delete(chocolat);
+		entiteRepo.delete(DonPourTous);
+		entiteRepo.delete(regis);
 	}
 	
 	
-//	@Test
-//	public void demandeFindAll() {
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
-//		
-//		Demande demandeDonPourTous = new Demande();
-//		try {
-//			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-////		demandeDonPourTous.setLot(pain);
-//		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
-////		demandeDonPourTous.setEntite(DonPourTous);
-//		
-//		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
-//		demandeDonPourTous = demandeRepo.findById(demandeDonPourTous.getId());
-//		
-//		
-//		Demande demandeRegis = new Demande();
-//		try {
-//			demandeRegis.setDtDemande(sdf.parse("01/06/2021"));
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		}
-////		demandeRegis.setLot(chocolat);
-//		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
-////		demandeRegis.setEntite(regis);
-//		
-//		demandeRegis = demandeRepo.save(demandeRegis);
-//		demandeRegis = demandeRepo.findById(demandeRegis.getId());
-//		
-//		List<Demande> demandes = demandeRepo.findAll();
-//		Assert.assertEquals(2, demandes.size());
-//		
-//		demandeRepo.delete(demandeDonPourTous);
-//		demandeRepo.delete(demandeRegis);
-//	}
-//	
-//	
-//	@Test
-//	public void createMessage () {
-//		
-//		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
-//		
-//		sopra.ShareYourFood.model.Message messageDonPourTousLeclerc = new sopra.ShareYourFood.model.Message();
-//		messageDonPourTousLeclerc.setContenu("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.");
-////		messageDonPourTousLeclerc.setDemande(demandeDonPourTous);
-//		messageDonPourTousLeclerc.setDonneur(false);
-//		
-//		sopra.ShareYourFood.model.Message messageLeclercDonPourTous = new sopra.ShareYourFood.model.Message();
-//		messageLeclercDonPourTous.setContenu("Bien volontiers");
-////		messageLeclercDonPourTous.setDemande(demandeDonPourTous);
-//		messageLeclercDonPourTous.setDonneur(true);
-//		
-//		
-//		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
-//		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
-////		messageRegis.setDemande(demandeRegis);
-//		messageRegis.setDonneur(false);
-//		
-//		sopra.ShareYourFood.model.Message messageLeclercRegis = new sopra.ShareYourFood.model.Message();
-//		messageLeclercRegis.setContenu("Bien sur");
-////		messageLeclercRegis.setDemande(demandeRegis);
-//		messageLeclercRegis.setDonneur(true);
-//		
-//		
-//		messageDonPourTousLeclerc = messageRepo.save(messageDonPourTousLeclerc);
-//		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
-//		messageRegis = messageRepo.save(messageRegis);
-//		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
-//		
-//		messageDonPourTousLeclerc = messageRepo.findById(messageDonPourTousLeclerc.getId());
-//		messageLeclercDonPourTous = messageRepo.findById(messageLeclercDonPourTous.getId());
-//		messageRegis = messageRepo.findById(messageRegis.getId());
-//		messageLeclercRegis = messageRepo.findById(messageLeclercRegis.getId());
-//		
-//		
-//		sopra.ShareYourFood.model.Message uFind = messageRepo.findById(messageDonPourTousLeclerc.getId());
-//		Assert.assertEquals("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.", uFind.getContenu());
-//		Assert.assertEquals(false, uFind.getDonneur());
-////		Assert.assertEquals(demandeDonPourTous, uFind.getDemande());
-//		
-//		sopra.ShareYourFood.model.Message uFind2 = messageRepo.findById(messageLeclercDonPourTous.getId());
-//		Assert.assertEquals("Bien volontiers", uFind2.getContenu());
-//		Assert.assertEquals(true, uFind2.getDonneur());
-////		Assert.assertEquals(demandeDonPourTous, uFind.getDemande());
-//		
-//		sopra.ShareYourFood.model.Message uFind3 = messageRepo.findById(messageRegis.getId());
-//		Assert.assertEquals("Bonjour, est-il possible de disposer de chocolat ? Bien à vous", uFind3.getContenu());
-//		Assert.assertEquals(false, uFind3.getDonneur());
-////		Assert.assertEquals(demandeRegis, uFind.getDemande());
-//		
-//		sopra.ShareYourFood.model.Message uFind4 = messageRepo.findById(messageLeclercRegis.getId());
-//		Assert.assertEquals("Bien sur", uFind4.getContenu());
-//		Assert.assertEquals(true, uFind4.getDonneur());
-////		Assert.assertEquals(demandeRegis, uFind.getDemande());
-//		
-//		messageRepo.delete(messageDonPourTousLeclerc);
-//		messageRepo.delete(messageLeclercDonPourTous);
-//		messageRepo.delete(messageRegis);
-//		messageRepo.delete(messageLeclercRegis);
-//		
-//	}
-//	
-//	
-//	@Test
-//	public void updateMessage() {
-//		
-//		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
-//		
-//		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
-//		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
-////		messageRegis.setDemande(demandeRegis);
-//		messageRegis.setDonneur(false);
-//		
-//		messageRegis = messageRepo.save(messageRegis);
-//		messageRegis = messageRepo.findById(messageRegis.getId());
-//		
-//		messageRegis.setContenu("Finalement, je vais faire un don à l'association Don Pour Tous");
-////		messageRegis.setDemande(demandeDonPourTous);
-//		messageRegis.setDonneur(true);
-//		
-//		messageRegis = messageRepo.save(messageRegis);
-//		messageRegis = messageRepo.findById(messageRegis.getId());
-//		
-//		sopra.ShareYourFood.model.Message uFind3 = messageRepo.findById(messageRegis.getId());
-//		Assert.assertEquals("Finalement, je vais faire un don à l'association Don Pour Tous", uFind3.getContenu());
-//		Assert.assertEquals(true, uFind3.getDonneur());
-////		Assert.assertEquals(demandeDonPourTous, uFind.getDemande());
-//		
-//		
-//		messageRepo.delete(messageRegis);
-//		
-//	}
-//	
-//	@Test
-//	public void messageFindAll() {
-//		
-//IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
-//		
-//		sopra.ShareYourFood.model.Message messageDonPourTousLeclerc = new sopra.ShareYourFood.model.Message();
-//		messageDonPourTousLeclerc.setContenu("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.");
-////		messageDonPourTousLeclerc.setDemande(demandeDonPourTous);
-//		messageDonPourTousLeclerc.setDonneur(false);
-//		
-//		sopra.ShareYourFood.model.Message messageLeclercDonPourTous = new sopra.ShareYourFood.model.Message();
-//		messageLeclercDonPourTous.setContenu("Bien volontiers");
-////		messageLeclercDonPourTous.setDemande(demandeDonPourTous);
-//		messageLeclercDonPourTous.setDonneur(true);
-//		
-//		
-//		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
-//		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
-////		messageRegis.setDemande(demandeRegis);
-//		messageRegis.setDonneur(false);
-//		
-//		sopra.ShareYourFood.model.Message messageLeclercRegis = new sopra.ShareYourFood.model.Message();
-//		messageLeclercRegis.setContenu("Bien sur");
-////		messageLeclercRegis.setDemande(demandeRegis);
-//		messageLeclercRegis.setDonneur(true);
-//		
-//		
-//		messageDonPourTousLeclerc = messageRepo.save(messageDonPourTousLeclerc);
-//		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
-//		messageRegis = messageRepo.save(messageRegis);
-//		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
-//		
-//		messageDonPourTousLeclerc = messageRepo.findById(messageDonPourTousLeclerc.getId());
-//		messageLeclercDonPourTous = messageRepo.findById(messageLeclercDonPourTous.getId());
-//		messageRegis = messageRepo.findById(messageRegis.getId());
-//		messageLeclercRegis = messageRepo.findById(messageLeclercRegis.getId());
-//		
-//		
-//		List<Message> messages = messageRepo.findAll();
-//		Assert.assertEquals(4, messages.size());
-//		
-//		messageRepo.delete(messageDonPourTousLeclerc);
-//		messageRepo.delete(messageLeclercDonPourTous);
-//		messageRepo.delete(messageRegis);
-//		messageRepo.delete(messageLeclercRegis);
-//		
-//	}
+	@Test
+	public void createMessage () {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
+		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
+		
+		sopra.ShareYourFood.model.Message messageDonPourTousLeclerc = new sopra.ShareYourFood.model.Message();
+		messageDonPourTousLeclerc.setContenu("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.");
+		messageDonPourTousLeclerc.setDonneur(false);
+		
+		sopra.ShareYourFood.model.Message messageLeclercDonPourTous = new sopra.ShareYourFood.model.Message();
+		messageLeclercDonPourTous.setContenu("Bien volontiers");
+		messageLeclercDonPourTous.setDonneur(true);
+		
+		
+		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
+		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
+		messageRegis.setDonneur(false);
+		
+		sopra.ShareYourFood.model.Message messageLeclercRegis = new sopra.ShareYourFood.model.Message();
+		messageLeclercRegis.setContenu("Bien sur");
+		messageLeclercRegis.setDonneur(true);
+		
+		
+		Demande demandeDonPourTous = new Demande();
+		try {
+			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		Demande demandeRegis = new Demande();
+		try {
+			demandeRegis.setDtDemande(sdf.parse("01/06/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		
+		messageDonPourTousLeclerc = messageRepo.save(messageDonPourTousLeclerc);
+		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
+		messageRegis = messageRepo.save(messageRegis);
+		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
+		
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
+		demandeRegis = demandeRepo.save(demandeRegis);
+		
+		messageDonPourTousLeclerc.setDemande(demandeDonPourTous);
+		messageLeclercDonPourTous.setDemande(demandeDonPourTous);
+		messageRegis.setDemande(demandeRegis);
+		messageLeclercRegis.setDemande(demandeRegis);
+		
+		messageDonPourTousLeclerc = messageRepo.save(messageDonPourTousLeclerc);
+		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
+		messageRegis = messageRepo.save(messageRegis);
+		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
+		
+		messageDonPourTousLeclerc = messageRepo.findById(messageDonPourTousLeclerc.getId());
+		messageLeclercDonPourTous = messageRepo.findById(messageLeclercDonPourTous.getId());
+		messageRegis = messageRepo.findById(messageRegis.getId());
+		messageLeclercRegis = messageRepo.findById(messageLeclercRegis.getId());
+		
+		
+		sopra.ShareYourFood.model.Message uFind = messageRepo.findById(messageDonPourTousLeclerc.getId());
+		Assert.assertEquals("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.", uFind.getContenu());
+		Assert.assertEquals(false, uFind.getDonneur());
+		Assert.assertEquals(demandeDonPourTous.getId(), uFind.getDemande().getId());
+		
+		sopra.ShareYourFood.model.Message uFind2 = messageRepo.findById(messageLeclercDonPourTous.getId());
+		Assert.assertEquals("Bien volontiers", uFind2.getContenu());
+		Assert.assertEquals(true, uFind2.getDonneur());
+		Assert.assertEquals(demandeDonPourTous.getId(), uFind2.getDemande().getId());
+		
+		sopra.ShareYourFood.model.Message uFind3 = messageRepo.findById(messageRegis.getId());
+		Assert.assertEquals("Bonjour, est-il possible de disposer de chocolat ? Bien à vous", uFind3.getContenu());
+		Assert.assertEquals(false, uFind3.getDonneur());
+		Assert.assertEquals(demandeRegis.getId(), uFind3.getDemande().getId());
+		
+		sopra.ShareYourFood.model.Message uFind4 = messageRepo.findById(messageLeclercRegis.getId());
+		Assert.assertEquals("Bien sur", uFind4.getContenu());
+		Assert.assertEquals(true, uFind4.getDonneur());
+		Assert.assertEquals(demandeRegis.getId(), uFind4.getDemande().getId());
+		
+		messageRepo.delete(messageDonPourTousLeclerc);
+		messageRepo.delete(messageLeclercDonPourTous);
+		messageRepo.delete(messageRegis);
+		messageRepo.delete(messageLeclercRegis);
+		
+		demandeRepo.delete(demandeDonPourTous);
+		demandeRepo.delete(demandeRegis);
+	}
+	
+	
+	@Test
+	public void updateMessage() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
+		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
+		
+		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
+		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
+		messageRegis.setDonneur(false);
+
+		
+		Demande demandeRegis = new Demande();
+		try {
+			demandeRegis.setDtDemande(sdf.parse("01/06/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		Demande demandeDonPourTous = new Demande();
+		try {
+			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		
+		messageRegis = messageRepo.save(messageRegis);
+		messageRegis = messageRepo.findById(messageRegis.getId());
+		
+		demandeRegis = demandeRepo.save(demandeRegis);
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
+		
+		messageRegis.setDemande(demandeRegis);
+		messageRegis = messageRepo.save(messageRegis);
+		
+		messageRegis.setContenu("Finalement, je vais faire un don à l'association Don Pour Tous");
+		messageRegis.setDonneur(true);
+		messageRegis.setDemande(demandeDonPourTous);
+		
+		messageRegis = messageRepo.save(messageRegis);
+		messageRegis = messageRepo.findById(messageRegis.getId());
+		
+		
+		sopra.ShareYourFood.model.Message uFind3 = messageRepo.findById(messageRegis.getId());
+		Assert.assertEquals("Finalement, je vais faire un don à l'association Don Pour Tous", uFind3.getContenu());
+		Assert.assertEquals(true, uFind3.getDonneur());
+		Assert.assertEquals(demandeDonPourTous.getId(), uFind3.getDemande().getId());
+		
+		
+		messageRepo.delete(messageRegis);
+		demandeRepo.delete(demandeRegis);
+		demandeRepo.delete(demandeDonPourTous);
+		
+	}
+	
+	@Test
+	public void messageFindAll() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
+		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
+		
+		sopra.ShareYourFood.model.Message messageDonPourTousLeclerc = new sopra.ShareYourFood.model.Message();
+		messageDonPourTousLeclerc.setContenu("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.");
+		messageDonPourTousLeclerc.setDonneur(false);
+		
+		sopra.ShareYourFood.model.Message messageLeclercDonPourTous = new sopra.ShareYourFood.model.Message();
+		messageLeclercDonPourTous.setContenu("Bien volontiers");
+		messageLeclercDonPourTous.setDonneur(true);
+		
+		
+		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
+		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
+		messageRegis.setDonneur(false);
+		
+		sopra.ShareYourFood.model.Message messageLeclercRegis = new sopra.ShareYourFood.model.Message();
+		messageLeclercRegis.setContenu("Bien sur");
+		messageLeclercRegis.setDonneur(true);
+		
+		Demande demandeDonPourTous = new Demande();
+		try {
+			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		Demande demandeRegis = new Demande();
+		try {
+			demandeRegis.setDtDemande(sdf.parse("01/06/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
+		
+		
+		messageDonPourTousLeclerc = messageRepo.save(messageDonPourTousLeclerc);
+		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
+		messageRegis = messageRepo.save(messageRegis);
+		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
+		
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
+		demandeRegis = demandeRepo.save(demandeRegis);
+		
+		messageDonPourTousLeclerc.setDemande(demandeDonPourTous);
+		messageLeclercDonPourTous.setDemande(demandeDonPourTous);
+		messageRegis.setDemande(demandeRegis);
+		messageLeclercRegis.setDemande(demandeRegis);
+		
+		messageDonPourTousLeclerc = messageRepo.save(messageDonPourTousLeclerc);
+		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
+		messageRegis = messageRepo.save(messageRegis);
+		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
+		
+		messageDonPourTousLeclerc = messageRepo.findById(messageDonPourTousLeclerc.getId());
+		messageLeclercDonPourTous = messageRepo.findById(messageLeclercDonPourTous.getId());
+		messageRegis = messageRepo.findById(messageRegis.getId());
+		messageLeclercRegis = messageRepo.findById(messageLeclercRegis.getId());
+		
+		
+		List<Message> messages = messageRepo.findAll();
+		Assert.assertEquals(4, messages.size());
+		
+		messageRepo.delete(messageDonPourTousLeclerc);
+		messageRepo.delete(messageLeclercDonPourTous);
+		messageRepo.delete(messageRegis);
+		messageRepo.delete(messageLeclercRegis);
+		
+		demandeRepo.delete(demandeDonPourTous);
+		demandeRepo.delete(demandeRegis);
+		
+	}
 
 }
