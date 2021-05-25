@@ -1,14 +1,17 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Association;
 import sopra.ShareYourFood.model.Categorie;
 import sopra.ShareYourFood.model.Demande;
+import sopra.ShareYourFood.model.Don;
+import sopra.ShareYourFood.model.Entite;
 import sopra.ShareYourFood.model.Entreprise;
 import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Message;
@@ -17,21 +20,36 @@ import sopra.ShareYourFood.model.Role;
 import sopra.ShareYourFood.model.Statut;
 import sopra.ShareYourFood.model.StatutNotif;
 import sopra.ShareYourFood.model.Utilisateur;
+import sopra.ShareYourFood.repository.IAdresseRepository;
 import sopra.ShareYourFood.repository.IDemandeRepository;
+import sopra.ShareYourFood.repository.IDonRepository;
 import sopra.ShareYourFood.repository.IEntiteRepository;
 import sopra.ShareYourFood.repository.ILotRepository;
 import sopra.ShareYourFood.repository.IMessageRepository;
+import sopra.ShareYourFood.repository.IProduitLotRepository;
+import sopra.ShareYourFood.repository.IProduitRepository;
 import sopra.ShareYourFood.repository.IUtilisateurRepository;
 
 public class TestSeif {
 	
+
+	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+			"classpath:application-context.xml");
+	
+	IDemandeRepository demandeRepo = context.getBean(IDemandeRepository .class);
+	IDonRepository donRepo = context.getBean(IDonRepository .class);
+	IEntiteRepository entiteRepo = context.getBean(IEntiteRepository .class);
+	ILotRepository lotRepo = context.getBean(ILotRepository .class);
+	IProduitRepository produitRepo = context.getBean(IProduitRepository .class);
+	IUtilisateurRepository utilisateurRepo = context.getBean(IUtilisateurRepository .class);
+	IMessageRepository messageRepo = context.getBean(IMessageRepository .class);
+	IAdresseRepository adresseRepo = context.getBean(IAdresseRepository .class);
+	IProduitLotRepository produitLotRepo = context.getBean(IProduitLotRepository .class);
+	
+	
 	@Test
 	public void utilisateurCreate() {
-		
-		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-		
-		
+			
 		Utilisateur cocoDu06 = new Utilisateur("Coco_du_06", "cocodu06@gmail.com","azerty", true);
 		cocoDu06.setRole(Role.MEMBRE);
 		
@@ -122,11 +140,11 @@ public class TestSeif {
 		sarahCze = utilisateurRepo.save(sarahCze);
 		
 		
-		Utilisateur uFind = utilisateurRepo.findById(cocoDu06.getId());
-		Assert.assertEquals("Coco_du_06", uFind.getPseudo());
-		Assert.assertEquals("azerty", uFind.getMotDePasse());
-		Assert.assertEquals("cocodu06@gmail.com", uFind.getMail());
-		Assert.assertEquals(true, uFind.getMessagerieActivation());
+		Optional<Utilisateur> uFind = utilisateurRepo.findById(cocoDu06.getId());
+		Assert.assertEquals("Coco_du_06", uFind.get().getPseudo());
+		Assert.assertEquals("azerty", uFind.get().getMotDePasse());
+		Assert.assertEquals("cocodu06@gmail.com", uFind.get().getMail());
+		Assert.assertEquals(true, uFind.get().getMessagerieActivation());
 		
 		List<Utilisateur> utilisateurs = utilisateurRepo.findAll();
 		Assert.assertEquals(4, utilisateurs.size());
@@ -147,10 +165,6 @@ public class TestSeif {
 	
 	@Test
 	public void utilisateurUpdate() {
-		
-		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-		
 		
 		Utilisateur cocoDu06 = new Utilisateur();
 		cocoDu06.setPseudo("Coco_du_06");
@@ -174,42 +188,35 @@ public class TestSeif {
 		Leclerc = (Entreprise) entiteRepo.save(Leclerc);
 		cocoDu06.setEntite(Leclerc);
 		cocoDu06 = utilisateurRepo.save(cocoDu06);
-		cocoDu06 = utilisateurRepo.findById(cocoDu06.getId());
+		
+		Optional<Utilisateur> utilisateurFind = utilisateurRepo.findById(cocoDu06.getId());
 		
 		cocoDu06.setPseudo("co_60");
 		cocoDu06.setMotDePasse("ytreza");
 		cocoDu06.setMail("co@hotmail.com");
 		cocoDu06.setMessagerieActivation(false);
 		cocoDu06.setRole(Role.ADMINISTRATEUR);
-		
-		
+				
 		cocoDu06 = utilisateurRepo.save(cocoDu06);
 		CroixRouge = (Association) entiteRepo.save(CroixRouge);
 		cocoDu06.setEntite(CroixRouge);
 		cocoDu06 = utilisateurRepo.save(cocoDu06);
-		cocoDu06 = utilisateurRepo.findById(cocoDu06.getId());
-		
-		Assert.assertEquals("co_60", cocoDu06.getPseudo());
-		Assert.assertEquals("ytreza", cocoDu06.getMotDePasse());
-		Assert.assertEquals("co@hotmail.com", cocoDu06.getMail());
-		Assert.assertEquals(false, cocoDu06.getMessagerieActivation());
-		Assert.assertEquals(Role.ADMINISTRATEUR, cocoDu06.getRole());
-		Assert.assertEquals(CroixRouge.getId(), cocoDu06.getEntite().getId());
+			
+		Assert.assertEquals("co_60", utilisateurFind.get().getPseudo());
+		Assert.assertEquals("ytreza", utilisateurFind.get().getMotDePasse());
+		Assert.assertEquals("co@hotmail.com", utilisateurFind.get().getMail());
+		Assert.assertEquals(false, utilisateurFind.get().getMessagerieActivation());
+		Assert.assertEquals(Role.ADMINISTRATEUR, utilisateurFind.get().getRole());
+		Assert.assertEquals(CroixRouge.getId(), utilisateurFind.get().getEntite().getId());
 		
 		utilisateurRepo.delete(cocoDu06);
 		entiteRepo.delete(Leclerc);
 		entiteRepo.delete(CroixRouge);
-		
-		
 	}
 	
 	@Test
 	public void utilisateurFindAll() {
-		
-		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-		
-		
+			
 		Utilisateur cocoDu06 = new Utilisateur();
 		cocoDu06.setPseudo("Coco_du_06");
 		cocoDu06.setMotDePasse("azerty");
@@ -299,10 +306,7 @@ public class TestSeif {
 	public void demandeCreate() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
-		ILotRepository lotRepo = Application.getInstance().getLotRepo();
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-		
+				
 		Demande demandeDonPourTous = new Demande();
 		try {
 			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
@@ -312,15 +316,13 @@ public class TestSeif {
 		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
 		
 		
-		
 		Demande demandeRegis = new Demande();
 		try {
 			demandeRegis.setDtDemande(sdf.parse("01/06/2021"));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
-		
+		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);		
 		
 		Lot chocolat = new Lot();
 		chocolat.setNom("Chocolat");
@@ -372,13 +374,14 @@ public class TestSeif {
 		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
 		demandeRegis = demandeRepo.save(demandeRegis);
 		
-		Demande uFind = demandeRepo.findById(demandeDonPourTous.getId());
+		Optional<Demande> uFind = demandeRepo.findById(demandeDonPourTous.getId());
+		
 		try {
-			Assert.assertEquals(sdf.parse("22/05/2021"), uFind.getDtDemande());
+			Assert.assertEquals(sdf.parse("22/05/2021"), uFind.get().getDtDemande());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Assert.assertEquals(StatutNotif.ACCEPTER, uFind.getStatutNotif());
+		Assert.assertEquals(StatutNotif.ACCEPTER, uFind.get().getStatutNotif());
 		
 		List<Demande> demandes = demandeRepo.findAll();
 		Assert.assertEquals(2, demandes.size());
@@ -388,19 +391,14 @@ public class TestSeif {
 		lotRepo.delete(pain);
 		lotRepo.delete(chocolat);
 		entiteRepo.delete(DonPourTous);
-		entiteRepo.delete(regis);
-		
-		
+		entiteRepo.delete(regis);		
 	}
 	
 	@Test
 	public void demandeUpdate() {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
-		ILotRepository lotRepo = Application.getInstance().getLotRepo();
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-		
+				
 		Demande demandeDonPourTous = new Demande();
 		try {
 			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
@@ -416,8 +414,6 @@ public class TestSeif {
 			e.printStackTrace();
 		}
 		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
-	
-		
 	
 		Lot chocolat = new Lot();
 		chocolat.setNom("Chocolat");
@@ -439,8 +435,7 @@ public class TestSeif {
 		}
 		pain.setPhoto("bkbkbk/dhvb/ihcv");
 		pain.setVolume((long) 25);
-		pain.setStatut(Statut.DISPONIBLE);
-	
+		pain.setStatut(Statut.DISPONIBLE);	
 		
 		Particulier regis = new Particulier("regis", 25);
 		regis.setNom("SIMON");
@@ -464,9 +459,7 @@ public class TestSeif {
 		demandeDonPourTous.setLot(pain);
 		demandeDonPourTous.setEntite(DonPourTous);
 		
-		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
-
-		
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);		
 		
 		try {
 			demandeDonPourTous.setDtDemande(sdf.parse("26/12/2021"));
@@ -479,10 +472,7 @@ public class TestSeif {
 		demandeDonPourTous.setLot(chocolat);
 		demandeDonPourTous.setEntite(regis);
 		
-		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
-
-		
-		
+		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);		
 		
 		try {
 			Assert.assertEquals(sdf.parse("26/12/2021"), demandeDonPourTous.getDtDemande());
@@ -502,19 +492,15 @@ public class TestSeif {
 		lotRepo.delete(pain);
 		lotRepo.delete(chocolat);
 		entiteRepo.delete(DonPourTous);
-		entiteRepo.delete(regis);
-			
+		entiteRepo.delete(regis);			
 	}
 	
 	
 	@Test
 	public void demandeFindAll() {
-		
+	
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
-		ILotRepository lotRepo = Application.getInstance().getLotRepo();
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-		
+			
 		Demande demandeDonPourTous = new Demande();
 		try {
 			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
@@ -581,9 +567,7 @@ public class TestSeif {
 		
 		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
 		demandeRegis = demandeRepo.save(demandeRegis);
-		
-		
-		
+				
 		List<Demande> demandes = demandeRepo.findAll();
 		Assert.assertEquals(2, demandes.size());
 		
@@ -598,10 +582,8 @@ public class TestSeif {
 	
 	@Test
 	public void createMessage () {
-		
+				
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
-		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
 		
 		sopra.ShareYourFood.model.Message messageDonPourTousLeclerc = new sopra.ShareYourFood.model.Message();
 		messageDonPourTousLeclerc.setContenu("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.");
@@ -610,8 +592,7 @@ public class TestSeif {
 		sopra.ShareYourFood.model.Message messageLeclercDonPourTous = new sopra.ShareYourFood.model.Message();
 		messageLeclercDonPourTous.setContenu("Bien volontiers");
 		messageLeclercDonPourTous.setDonneur(true);
-		
-		
+				
 		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
 		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
 		messageRegis.setDonneur(false);
@@ -619,8 +600,7 @@ public class TestSeif {
 		sopra.ShareYourFood.model.Message messageLeclercRegis = new sopra.ShareYourFood.model.Message();
 		messageLeclercRegis.setContenu("Bien sur");
 		messageLeclercRegis.setDonneur(true);
-		
-		
+				
 		Demande demandeDonPourTous = new Demande();
 		try {
 			demandeDonPourTous.setDtDemande(sdf.parse("22/05/2021"));
@@ -636,7 +616,6 @@ public class TestSeif {
 			e.printStackTrace();
 		}
 		demandeRegis.setStatutNotif(StatutNotif.ACCEPTER);
-		
 		
 		messageDonPourTousLeclerc = messageRepo.save(messageDonPourTousLeclerc);
 		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
@@ -656,31 +635,26 @@ public class TestSeif {
 		messageRegis = messageRepo.save(messageRegis);
 		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
 		
-		messageDonPourTousLeclerc = messageRepo.findById(messageDonPourTousLeclerc.getId());
-		messageLeclercDonPourTous = messageRepo.findById(messageLeclercDonPourTous.getId());
-		messageRegis = messageRepo.findById(messageRegis.getId());
-		messageLeclercRegis = messageRepo.findById(messageLeclercRegis.getId());
+		Optional<Message> messagefind = messageRepo.findById(messageDonPourTousLeclerc.getId());
+		Optional<Message> messagefind2 = messageRepo.findById(messageLeclercDonPourTous.getId());
+		Optional<Message> messagefind3 = messageRepo.findById(messageRegis.getId());
+		Optional<Message> messagefind4 = messageRepo.findById(messageLeclercRegis.getId());
+			
+		Assert.assertEquals("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.", messagefind.get().getContenu());
+		Assert.assertEquals(false, messagefind.get().getDonneur());
+		Assert.assertEquals(demandeDonPourTous.getId(), messagefind.get().getDemande().getId());
 		
+		Assert.assertEquals("Bien volontiers", messagefind2.get().getContenu());
+		Assert.assertEquals(true, messagefind2.get().getDonneur());
+		Assert.assertEquals(demandeDonPourTous.getId(), messagefind2.get().getDemande().getId());
 		
-		sopra.ShareYourFood.model.Message uFind = messageRepo.findById(messageDonPourTousLeclerc.getId());
-		Assert.assertEquals("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.", uFind.getContenu());
-		Assert.assertEquals(false, uFind.getDonneur());
-		Assert.assertEquals(demandeDonPourTous.getId(), uFind.getDemande().getId());
+		Assert.assertEquals("Bonjour, est-il possible de disposer de chocolat ? Bien à vous", messagefind3.get().getContenu());
+		Assert.assertEquals(false, messagefind3.get().getDonneur());
+		Assert.assertEquals(demandeRegis.getId(), messagefind3.get().getDemande().getId());
 		
-		sopra.ShareYourFood.model.Message uFind2 = messageRepo.findById(messageLeclercDonPourTous.getId());
-		Assert.assertEquals("Bien volontiers", uFind2.getContenu());
-		Assert.assertEquals(true, uFind2.getDonneur());
-		Assert.assertEquals(demandeDonPourTous.getId(), uFind2.getDemande().getId());
-		
-		sopra.ShareYourFood.model.Message uFind3 = messageRepo.findById(messageRegis.getId());
-		Assert.assertEquals("Bonjour, est-il possible de disposer de chocolat ? Bien à vous", uFind3.getContenu());
-		Assert.assertEquals(false, uFind3.getDonneur());
-		Assert.assertEquals(demandeRegis.getId(), uFind3.getDemande().getId());
-		
-		sopra.ShareYourFood.model.Message uFind4 = messageRepo.findById(messageLeclercRegis.getId());
-		Assert.assertEquals("Bien sur", uFind4.getContenu());
-		Assert.assertEquals(true, uFind4.getDonneur());
-		Assert.assertEquals(demandeRegis.getId(), uFind4.getDemande().getId());
+		Assert.assertEquals("Bien sur", messagefind4.get().getContenu());
+		Assert.assertEquals(true, messagefind4.get().getDonneur());
+		Assert.assertEquals(demandeRegis.getId(), messagefind4.get().getDemande().getId());
 		
 		messageRepo.delete(messageDonPourTousLeclerc);
 		messageRepo.delete(messageLeclercDonPourTous);
@@ -694,11 +668,9 @@ public class TestSeif {
 	
 	@Test
 	public void updateMessage() {
-		
+	
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
-		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
-		
+	
 		sopra.ShareYourFood.model.Message messageRegis = new sopra.ShareYourFood.model.Message();
 		messageRegis.setContenu("Bonjour, est-il possible de disposer de chocolat ? Bien à vous");
 		messageRegis.setDonneur(false);
@@ -720,9 +692,7 @@ public class TestSeif {
 		}
 		demandeDonPourTous.setStatutNotif(StatutNotif.ACCEPTER);
 		
-		
 		messageRegis = messageRepo.save(messageRegis);
-		messageRegis = messageRepo.findById(messageRegis.getId());
 		
 		demandeRegis = demandeRepo.save(demandeRegis);
 		demandeDonPourTous = demandeRepo.save(demandeDonPourTous);
@@ -735,13 +705,12 @@ public class TestSeif {
 		messageRegis.setDemande(demandeDonPourTous);
 		
 		messageRegis = messageRepo.save(messageRegis);
-		messageRegis = messageRepo.findById(messageRegis.getId());
+				
+		Optional<Message> messagefind = messageRepo.findById(messageRegis.getId());
 		
-		
-		sopra.ShareYourFood.model.Message uFind3 = messageRepo.findById(messageRegis.getId());
-		Assert.assertEquals("Finalement, je vais faire un don à l'association Don Pour Tous", uFind3.getContenu());
-		Assert.assertEquals(true, uFind3.getDonneur());
-		Assert.assertEquals(demandeDonPourTous.getId(), uFind3.getDemande().getId());
+		Assert.assertEquals("Finalement, je vais faire un don à l'association Don Pour Tous", messagefind.get().getContenu());
+		Assert.assertEquals(true, messagefind.get().getDonneur());
+		Assert.assertEquals(demandeDonPourTous.getId(), messagefind.get().getDemande().getId());
 		
 		
 		messageRepo.delete(messageRegis);
@@ -752,10 +721,8 @@ public class TestSeif {
 	
 	@Test
 	public void messageFindAll() {
-		
+			
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
-		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
 		
 		sopra.ShareYourFood.model.Message messageDonPourTousLeclerc = new sopra.ShareYourFood.model.Message();
 		messageDonPourTousLeclerc.setContenu("Bonjour, Don Pour Tous souhaiterai bénéficier de ce don. Nous vous remercions par avance.");
@@ -808,12 +775,6 @@ public class TestSeif {
 		messageLeclercDonPourTous = messageRepo.save(messageLeclercDonPourTous);
 		messageRegis = messageRepo.save(messageRegis);
 		messageLeclercRegis = messageRepo.save(messageLeclercRegis);
-		
-		messageDonPourTousLeclerc = messageRepo.findById(messageDonPourTousLeclerc.getId());
-		messageLeclercDonPourTous = messageRepo.findById(messageLeclercDonPourTous.getId());
-		messageRegis = messageRepo.findById(messageRegis.getId());
-		messageLeclercRegis = messageRepo.findById(messageLeclercRegis.getId());
-		
 		
 		List<Message> messages = messageRepo.findAll();
 		Assert.assertEquals(4, messages.size());
