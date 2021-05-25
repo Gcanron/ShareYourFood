@@ -10,6 +10,7 @@ import sopra.ShareYourFood.repository.IDonRepository;
 import sopra.ShareYourFood.repository.IEntiteRepository;
 import sopra.ShareYourFood.repository.ILotRepository;
 import sopra.ShareYourFood.repository.IMessageRepository;
+import sopra.ShareYourFood.repository.IProduitLotRepository;
 import sopra.ShareYourFood.repository.IProduitRepository;
 import sopra.ShareYourFood.repository.IUtilisateurRepository;
 import sopra.ShareYourFood.repository.jpa.AdresseRepositoryJpa;
@@ -18,6 +19,7 @@ import sopra.ShareYourFood.repository.jpa.DonRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.EntiteRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.LotRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.MessageRepositoryJpa;
+import sopra.ShareYourFood.repository.jpa.ProduitLotRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.ProduitRepositoryJpa;
 import sopra.ShareYourFood.repository.jpa.UtilisateurRepositoryJpa;
 
@@ -34,7 +36,8 @@ public class Application {
 	private final IUtilisateurRepository utilisateurRepo = new UtilisateurRepositoryJpa();
 	private final IMessageRepository messageRepo = new MessageRepositoryJpa();
 	private final IAdresseRepository adresseRepo = new AdresseRepositoryJpa();
-	
+	private final IProduitLotRepository produitLotRepo = new ProduitLotRepositoryJpa();
+
 	private Application() {
 
 	}
@@ -47,6 +50,10 @@ public class Application {
 		return instance;
 	}	
 	
+	public IProduitLotRepository getProduitLotRepo() {
+		return produitLotRepo;
+	}
+
 	
 	public IMessageRepository getMessageRepo() {
 		return messageRepo;

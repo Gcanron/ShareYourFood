@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
-import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.ProduitLot;
 import sopra.ShareYourFood.repository.IProduitLotRepository;
 
@@ -26,7 +25,7 @@ public class ProduitLotRepositoryJpa implements IProduitLotRepository{
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<ProduitLot> query = em.createQuery("select e from Produit_lot e ", ProduitLot.class);
+			TypedQuery<ProduitLot> query = em.createQuery("select e from ProduitLot e ", ProduitLot.class);
 
 			produitlots = query.getResultList();
 

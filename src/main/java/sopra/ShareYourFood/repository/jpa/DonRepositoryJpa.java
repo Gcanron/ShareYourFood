@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Don;
+import sopra.ShareYourFood.model.Entite;
 import sopra.ShareYourFood.repository.IDonRepository;
 
 
@@ -77,7 +78,8 @@ public class DonRepositoryJpa implements IDonRepository {
 		return don;
 	}
 	
-	public List<Don> findAllJeRecois(String ville, String entite) {
+	@Override
+	public List<Don> findAllJeRecois(String ville) {
 		
 		List<Don> dons = new ArrayList<Don>();
 
@@ -89,10 +91,10 @@ public class DonRepositoryJpa implements IDonRepository {
 			tx = em.getTransaction();
 			tx.begin();
 
-			TypedQuery<Don> query = em.createQuery("select d from Don d where d.adresse.ville = :entite.adresse.ville and d.destinataire = :entite.type and :entite.beneficiaire = true", Don.class);
+			TypedQuery<Don> query = em.createQuery("select d from Don d where d.adresse.ville = :ville and entite.", Don.class);
 			
 			query.setParameter("ville", ville);
-			query.setParameter("entite", entite);
+//			query.setParameter("entite", entite);
 
 			dons = query.getResultList();
 

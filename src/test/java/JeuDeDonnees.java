@@ -1,9 +1,5 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.google.protobuf.Message;
 
 import sopra.ShareYourFood.model.Adresse;
 import sopra.ShareYourFood.model.Association;
@@ -14,8 +10,11 @@ import sopra.ShareYourFood.model.Don;
 import sopra.ShareYourFood.model.Entreprise;
 import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Particulier;
+import sopra.ShareYourFood.model.Produit;
+import sopra.ShareYourFood.model.ProduitLot;
 import sopra.ShareYourFood.model.Statut;
 import sopra.ShareYourFood.model.StatutNotif;
+import sopra.ShareYourFood.model.Type;
 import sopra.ShareYourFood.model.Utilisateur;
 
 
@@ -92,14 +91,22 @@ public class JeuDeDonnees {
 		regisSimon.setEntite(regis);
 
 		Adresse adrAube = new Adresse("2 impasse Olympie", "Batiment A", "64000", "Pau");
-		
+		adrAube.setEntite(aubeline);
 		
 		Adresse adrSarahCze = new Adresse("75 rue d'Athènes", "bis", "33000", "Bordeaux");
-		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
-		Adresse adrDonPourTous = new Adresse("277 boulevard Leon Blum", "Bâtiment C", "75004", "Paris");
-		Adresse adrLeclerc = new Adresse("50 avenue Gutemberg", "Zone commerciale Soleil", "33700", "Mérignac");
-		Adresse adrRegis = new Adresse("3 avenue Molière", null, "33000", "Bordeaux");
+		adrSarahCze.setEntite(sarah);
 		
+		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
+		adrCroixRouge.setEntite(CroixRouge);
+
+		Adresse adrDonPourTous = new Adresse("277 boulevard Leon Blum", "Bâtiment C", "75004", "Paris");
+		adrDonPourTous.setEntite(DonPourTous);
+
+		Adresse adrLeclerc = new Adresse("50 avenue Gutemberg", "Zone commerciale Soleil", "33700", "Mérignac");
+		adrLeclerc.setEntite(Leclerc);
+
+		Adresse adrRegis = new Adresse("3 avenue Molière", null, "33000", "Bordeaux");
+		adrRegis.setEntite(regis);
 		
 		
 		Don donLeclerc = new Don();
@@ -179,7 +186,30 @@ public class JeuDeDonnees {
 		messageLeclercRegis.setDemande(demandeRegis);
 		messageLeclercRegis.setDonneur(true);
 		
+		
+		Produit croissant = new Produit();
+		croissant.setNom("pain");
+		croissant.setType(Type.valueOf("PAIN_PATISSERIE"));
 
+		Produit yaourt = new Produit();
+		yaourt.setNom("yaourt");
+		yaourt.setType(Type.valueOf("FRAIS"));
+		
+		Lot lotNumber1 = new Lot();
+		lotNumber1.setNom("Yaourt à gogo");
+		lotNumber1.setVolume(400L);
+		lotNumber1.setPhoto("C:/mesPhotos");
+		
+		ProduitLot yaourt_lot1 = new ProduitLot();
+		yaourt_lot1.setLot(lotNumber1);
+		yaourt_lot1.setProduit(yaourt);
+		yaourt_lot1.setQuantite(1000L);
+		try {
+			yaourt_lot1.setDtPeremption(sdf.parse("22/05/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 }

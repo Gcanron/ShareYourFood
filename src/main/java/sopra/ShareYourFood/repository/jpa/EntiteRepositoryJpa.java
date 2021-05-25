@@ -8,7 +8,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import sopra.ShareYourFood.Application;
-import sopra.ShareYourFood.model.Don;
 import sopra.ShareYourFood.model.Entite;
 import sopra.ShareYourFood.repository.IEntiteRepository;
 
@@ -59,6 +58,36 @@ public class EntiteRepositoryJpa implements IEntiteRepository {
 			tx.begin();
 
 			entite = em.find(Entite.class, id);
+
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (tx != null && tx.isActive()) {
+				tx.rollback();
+			}
+
+		} finally {
+			if (em != null) {
+				em.close();
+			}
+		}
+
+		return entite;
+	}
+
+	@Override
+	public Entite findByNom(String nom) {
+		Entite entite = null;
+
+		EntityManager em = null;
+		EntityTransaction tx = null;
+
+		try {
+			em = Application.getInstance().getEmf().createEntityManager();
+			tx = em.getTransaction();
+			tx.begin();
+
+			entite = em.find(Entite.class, nom);
 
 			tx.commit();
 		} catch (Exception e) {
