@@ -92,13 +92,6 @@ public class Application {
 	}
 	
 
-	public IMessageRepository getMessageRepo() {
-		return messageRepo;
-	}
-
-	public IAdresseRepository getAdresseRepo() {
-		return adresseRepo;
-	}
 
 	public static void setInstance(Application instance) {
 		Application.instance = instance;
