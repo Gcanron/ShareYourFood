@@ -54,14 +54,6 @@ public class Adresse {
 		this.id = id;
 	}
 
-	public Entite getEntite() {
-		return entite;
-	}
-
-	public void setEntite(Entite entite) {
-		this.entite = entite;
-	}
-
 	public Don getDon() {
 		return don;
 	}
