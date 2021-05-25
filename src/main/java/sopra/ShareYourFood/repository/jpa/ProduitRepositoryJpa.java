@@ -47,7 +47,7 @@ public class ProduitRepositoryJpa implements IProduitRepository {
 	}
 
 	@Override
-	public Produit findById(Long id) {
+	public Produit findById(String id) {
 		Produit produit = null;
 
 		EntityManager em = null;

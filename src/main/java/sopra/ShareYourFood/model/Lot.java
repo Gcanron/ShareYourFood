@@ -107,6 +107,8 @@ public class Lot {
 		this.don = don;
 	}
 
+	public List<ProduitLot> getProduitLots() {
+		return produitLots;
 	public void addProduitLot(ProduitLot produitLot) {
 		this.produitLots.add(produitLot);
 	}
@@ -123,41 +125,10 @@ public class Lot {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Lot other = (Lot) obj;
-		if (dtPeremptionLot == null) {
-			if (other.dtPeremptionLot != null)
-				return false;
-		} else if (!dtPeremptionLot.equals(other.dtPeremptionLot))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nom == null) {
-			if (other.nom != null)
-				return false;
-		} else if (!nom.equals(other.nom))
-			return false;
-		if (photo == null) {
-			if (other.photo != null)
-				return false;
-		} else if (!photo.equals(other.photo))
-			return false;
-		if (volume == null) {
-			if (other.volume != null)
-				return false;
-		} else if (!volume.equals(other.volume))
-			return false;
-		return true;
+	public void setProduitLots(List<ProduitLot> produitLots) {
+		this.produitLots = produitLots;
 	}
+
+
 
 }

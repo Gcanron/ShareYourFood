@@ -10,8 +10,11 @@ import sopra.ShareYourFood.model.Don;
 import sopra.ShareYourFood.model.Entreprise;
 import sopra.ShareYourFood.model.Lot;
 import sopra.ShareYourFood.model.Particulier;
+import sopra.ShareYourFood.model.Produit;
+import sopra.ShareYourFood.model.ProduitLot;
 import sopra.ShareYourFood.model.Statut;
 import sopra.ShareYourFood.model.StatutNotif;
+import sopra.ShareYourFood.model.Type;
 import sopra.ShareYourFood.model.Utilisateur;
 
 
@@ -183,7 +186,30 @@ public class JeuDeDonnees {
 		messageLeclercRegis.setDemande(demandeRegis);
 		messageLeclercRegis.setDonneur(true);
 		
+		
+		Produit croissant = new Produit();
+		croissant.setNom("pain");
+		croissant.setType(Type.valueOf("PAIN_PATISSERIE"));
 
+		Produit yaourt = new Produit();
+		yaourt.setNom("yaourt");
+		yaourt.setType(Type.valueOf("FRAIS"));
+		
+		Lot lotNumber1 = new Lot();
+		lotNumber1.setNom("Yaourt à gogo");
+		lotNumber1.setVolume(400L);
+		lotNumber1.setPhoto("C:/mesPhotos");
+		
+		ProduitLot yaourt_lot1 = new ProduitLot();
+		yaourt_lot1.setLot(lotNumber1);
+		yaourt_lot1.setProduit(yaourt);
+		yaourt_lot1.setQuantite(1000L);
+		try {
+			yaourt_lot1.setDtPeremption(sdf.parse("22/05/2021"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 }
