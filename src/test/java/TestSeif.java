@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Association;
@@ -27,6 +28,9 @@ public class TestSeif {
 	
 	@Test
 	public void utilisateurCreate() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 		
 		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
@@ -148,6 +152,9 @@ public class TestSeif {
 	@Test
 	public void utilisateurUpdate() {
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
 		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 		
@@ -205,6 +212,9 @@ public class TestSeif {
 	
 	@Test
 	public void utilisateurFindAll() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 		
 		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
@@ -297,6 +307,9 @@ public class TestSeif {
 	
 	@Test
 	public void demandeCreate() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
@@ -395,6 +408,9 @@ public class TestSeif {
 	
 	@Test
 	public void demandeUpdate() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
@@ -510,6 +526,9 @@ public class TestSeif {
 	@Test
 	public void demandeFindAll() {
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
 		ILotRepository lotRepo = Application.getInstance().getLotRepo();
@@ -598,6 +617,9 @@ public class TestSeif {
 	
 	@Test
 	public void createMessage () {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
@@ -695,6 +717,10 @@ public class TestSeif {
 	@Test
 	public void updateMessage() {
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
 		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
@@ -752,6 +778,9 @@ public class TestSeif {
 	
 	@Test
 	public void messageFindAll() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
