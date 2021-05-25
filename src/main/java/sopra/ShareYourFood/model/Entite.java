@@ -125,6 +125,11 @@ public class Entite {
 		utilisateur.setEntite(this);
 	}
 	
+	public void addAdresse(Adresse adresse) {
+		this.adresses.add(adresse);
+		adresse.setEntite(this);
+	}
+	
 
 	@Override
 	public String toString() {
