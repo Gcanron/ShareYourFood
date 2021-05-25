@@ -3,6 +3,7 @@ import java.util.List;
 import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Don;
 import sopra.ShareYourFood.model.Entite;
+import sopra.ShareYourFood.model.Particulier;
 import sopra.ShareYourFood.repository.IAdresseRepository;
 import sopra.ShareYourFood.repository.IDemandeRepository;
 import sopra.ShareYourFood.repository.IDonRepository;
@@ -26,10 +27,15 @@ public class TestJPQL {
 		IProduitRepository produitRepo = Application.getInstance().getProduitRepo();
 		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
 		
+	
+		Particulier regis = new Particulier("regis", 37);
+		regis.setNom("SIMON");
+		regis.setDonneur(false);
+		regis.setBeneficiaire(true);
 		
-		List<Don> donFind = donRepo.findAllJeRecois("Nantes");
+		List<Don> donFind = donRepo.findAllJeRecois("Mérignac");
 		
-		System.out.println(donFind);
+		System.out.println(donFind.toString());
 		
 			
 		
