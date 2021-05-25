@@ -1,7 +1,8 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import sopra.ShareYourFood.Application;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import sopra.ShareYourFood.model.Adresse;
 import sopra.ShareYourFood.model.Association;
 import sopra.ShareYourFood.model.Categorie;
@@ -20,6 +21,7 @@ import sopra.ShareYourFood.repository.IDonRepository;
 import sopra.ShareYourFood.repository.IEntiteRepository;
 import sopra.ShareYourFood.repository.ILotRepository;
 import sopra.ShareYourFood.repository.IMessageRepository;
+import sopra.ShareYourFood.repository.IProduitLotRepository;
 import sopra.ShareYourFood.repository.IProduitRepository;
 import sopra.ShareYourFood.repository.IUtilisateurRepository;
 
@@ -27,18 +29,21 @@ public class TestJpaWithDao {
 
 	public static void main(String[] args) {
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		
-		IAdresseRepository adresseRepo = Application.getInstance().getAdresseRepo();
-		IDemandeRepository demandeRepo = Application.getInstance().getDemandeRepo();
-		IDonRepository donRepo = Application.getInstance().getDonRepo();
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-		ILotRepository lotRepo = Application.getInstance().getLotRepo();
-		IMessageRepository messageRepo = Application.getInstance().getMessageRepo();
-		IProduitRepository produitRepo = Application.getInstance().getProduitRepo();
-		IUtilisateurRepository utilisateurRepo = Application.getInstance().getUtilisateurRepo();
-		
+		IDemandeRepository demandeRepo = context.getBean(IDemandeRepository .class);
+		IDonRepository donRepo = context.getBean(IDonRepository .class);
+		IEntiteRepository entiteRepo = context.getBean(IEntiteRepository .class);
+		ILotRepository lotRepo = context.getBean(ILotRepository .class);
+		IProduitRepository produitRepo = context.getBean(IProduitRepository .class);
+		IUtilisateurRepository utilisateurRepo = context.getBean(IUtilisateurRepository .class);
+		IMessageRepository messageRepo = context.getBean(IMessageRepository .class);
+		IAdresseRepository adresseRepo = context.getBean(IAdresseRepository .class);
+		IProduitLotRepository produitLotRepo = context.getBean(IProduitLotRepository .class);
+				
 		
 		Particulier aubeline = new Particulier("aubeline", 28);
 		aubeline.setNom("PECQUE");

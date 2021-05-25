@@ -141,7 +141,7 @@ public class TestAube {
 		aubeEntite.setBeneficiaire(false);
 
 		Adresse adrAube = new Adresse("500 impasse Olympie", "Batiment A", "64000", "Pau");
-		aubeEntite.addAdresse(adrAube);
+		//aubeEntite.addAdresse(adrAube);
 		Particulier aubeEntite2 = (Particulier) entiteRepo.save(aubeEntite);
 
 		entiteRepo.delete(aubeEntite2);
@@ -161,7 +161,7 @@ public class TestAube {
 
 		Adresse adrAube = new Adresse("1 impasse Olympie", "Batiment A", "64000", "Pau");
 
-		aubeEntite.addAdresse(adrAube);
+		//aubeEntite.addAdresse(adrAube);
 
 		Don donAubeline = new Don();
 		donAubeline.setDateDeMiseEnLigne(sdf.parse("24/05/2021"));
@@ -189,7 +189,7 @@ public class TestAube {
 
 		Adresse adrAube = new Adresse("999 impasse Olympie", "Batiment A", "64000", "Pau");
 
-		aubeEntite.addAdresse(adrAube);
+	//	aubeEntite.addAdresse(adrAube);
 
 		Demande jeVeuxDesPates = new Demande();
 		jeVeuxDesPates.setDtDemande(sdf.parse("24/05/2021"));
@@ -213,7 +213,7 @@ public class TestAube {
 		croixRougeEntite = (Association) entiteRepo.save(croixRougeEntite);
 
 		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
-		croixRougeEntite.addAdresse(adrCroixRouge);
+	//	croixRougeEntite.addAdresse(adrCroixRouge);
 
 		Utilisateur benevoleCroixRouge1 = new Utilisateur();
 		benevoleCroixRouge1.setPseudo("Toto65");
