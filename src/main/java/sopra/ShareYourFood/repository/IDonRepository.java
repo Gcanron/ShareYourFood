@@ -1,9 +1,8 @@
 package sopra.ShareYourFood.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import sopra.ShareYourFood.model.Don;
-import sopra.ShareYourFood.model.Entite;
 
 public interface IDonRepository extends JpaRepository<Don, Long> {
 
