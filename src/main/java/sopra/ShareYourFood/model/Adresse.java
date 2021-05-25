@@ -57,6 +57,13 @@ public class Adresse {
 		return rue;
 	}
 
+	public Entite getEntite() {
+		return entite;
+	}
+
+	public void setEntite(Entite entite) {
+		this.entite = entite;
+	}
 
 	public void setRue(String rue) {
 		this.rue = rue;
