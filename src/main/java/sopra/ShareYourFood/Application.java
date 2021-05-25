@@ -47,6 +47,15 @@ public class Application {
 		return instance;
 	}	
 	
+	
+	public IMessageRepository getMessageRepo() {
+		return messageRepo;
+	}
+
+	public IAdresseRepository getAdresseRepo() {
+		return adresseRepo;
+	}
+
 	public EntityManagerFactory getEmf() {
 		return emf;
 	}
