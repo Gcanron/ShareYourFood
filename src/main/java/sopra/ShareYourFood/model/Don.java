@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,11 +32,11 @@ public class Don {
 	@Column(name = "destinataire", length = 255)
 	private Destinataire destinataire;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "entite_id")
 	private Entite entite;
 	
-	@OneToMany(mappedBy = "don")
+	@OneToMany(mappedBy = "don", cascade = CascadeType.ALL)
 	private List<Lot> lot = new ArrayList<Lot>();
 	
 	@OneToOne(fetch = FetchType.LAZY)

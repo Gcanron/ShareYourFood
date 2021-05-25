@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,10 +25,10 @@ public class Demande {
 	private Date dtDemande;
 	@Column(name="statut_notif")
 	private StatutNotif statutNotif;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "entite_id")
 	private Entite entite;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "lot_id")
 	private Lot lot;
 	@OneToMany(mappedBy = "demande")

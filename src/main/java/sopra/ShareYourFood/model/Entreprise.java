@@ -27,6 +27,12 @@ public class Entreprise extends Entite {
 		this.categorie = categorie;
 	}
 
+	public Entreprise(String nom, boolean donneur, boolean beneficiaire, String siret, Categorie categorie) {
+		super(nom, donneur, beneficiaire);
+		this.siret = siret;
+		this.categorie = categorie;
+	}
+
 	public String getSiret() {
 		return siret;
 	}
