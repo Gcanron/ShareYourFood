@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Adresse;
@@ -17,6 +18,10 @@ public class TestSarah {
 	
 	@Test
 	public void entiteCreate() throws ParseException {	
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 		Entite entite1 = new Entite("Leclerc",true,false);
@@ -34,6 +39,9 @@ public class TestSarah {
 	
 	@Test
 	public void entiteUpdate() throws ParseException {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 			
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 		Entite entite1 = new Entite("Leclerc",true,false);
@@ -55,6 +63,9 @@ public class TestSarah {
 	@Test
 	public void adresseCreate() throws ParseException {	
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
 		IAdresseRepository adresseRepo = Application.getInstance().getAdresseRepo();
 		Adresse adrLeclerc = new Adresse("50 avenue Gutemberg", "Zone commerciale Soleil", "33700", "Mérignac");
 		
@@ -73,6 +84,9 @@ public class TestSarah {
 	@Test
 	public void adresseUpdate() throws ParseException {
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		IAdresseRepository adresseRepo = Application.getInstance().getAdresseRepo();
 		Adresse adrLeclerc = new Adresse("50 avenue Gutemberg", "Zone commerciale Soleil", "33700", "Mérignac");
 		
@@ -100,6 +114,9 @@ public class TestSarah {
 	@Test
 	public void donCreate() throws ParseException {	
 		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		IDonRepository donRepo = Application.getInstance().getDonRepo();
@@ -120,6 +137,9 @@ public class TestSarah {
 	
 	@Test
 	public void donUpdate() throws ParseException {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		

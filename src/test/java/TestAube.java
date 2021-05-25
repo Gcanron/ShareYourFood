@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Adresse;
@@ -20,6 +21,10 @@ public class TestAube {
 
 	@Test
 	public void CreateParticulier() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+					"classpath:application-context.xml");
+		
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Particulier aubeEntite = new Particulier("aubeline", 28);
@@ -45,6 +50,10 @@ public class TestAube {
 
 	@Test
 	public void CreateAssociation() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+					"classpath:application-context.xml");
+			
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Association croixRougeEntite = new Association("FR123456789", "justificatif1");
@@ -61,11 +70,14 @@ public class TestAube {
 		Assert.assertEquals(true, croixRougeEntiteFind.isBeneficiaire());
 
 		entiteRepo.delete(croixRougeEntiteFind);
-
 	}
 
 	@Test
 	public void CreateEntreprise() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+					"classpath:application-context.xml");
+			
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Entreprise leclerc = new Entreprise("5486935JH14S", Categorie.GRANDE_SURFACE);
@@ -86,6 +98,10 @@ public class TestAube {
 
 	@Test
 	public void updateParticulier() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Particulier aubeEntite = new Particulier("aubeline", 28);
@@ -105,6 +121,10 @@ public class TestAube {
 
 	@Test
 	public void addAdresseEntite() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Particulier aubeEntite = new Particulier("aubeline", 28);
@@ -122,6 +142,10 @@ public class TestAube {
 
 	@Test
 	public void addDonEntite() throws ParseException {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -151,6 +175,10 @@ public class TestAube {
 
 	@Test
 	public void addDemandeEntite() throws ParseException {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -176,6 +204,10 @@ public class TestAube {
 
 	@Test
 	public void addUtilisateurEntite() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Association croixRougeEntite = new Association("FR123456789", "justificatif1");

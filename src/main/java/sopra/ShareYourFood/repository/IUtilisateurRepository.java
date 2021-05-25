@@ -2,6 +2,6 @@ package sopra.ShareYourFood.repository;
 
 import sopra.ShareYourFood.model.Utilisateur;
 
-public interface IUtilisateurRepository extends IRepository<Utilisateur, Long>{
+public interface IUtilisateurRepository extends JpaRepository<Utilisateur, Long>{
 
 }
