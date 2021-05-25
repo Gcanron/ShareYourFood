@@ -2,6 +2,7 @@ package sopra.ShareYourFood.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,7 +26,7 @@ public class Adresse {
 	@Column(name = "ville", length = 255)
 	private String ville;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "entite_id")
 	private Entite entite;
 	
@@ -45,9 +46,35 @@ public class Adresse {
 	}
 	
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Entite getEntite() {
+		return entite;
+	}
+
+	public void setEntite(Entite entite) {
+		this.entite = entite;
+	}
+
+	public Don getDon() {
+		return don;
+	}
+
+	public void setDon(Don don) {
+		this.don = don;
+	}
+
 	public String getRue() {
 		return rue;
 	}
+
+
 	public void setRue(String rue) {
 		this.rue = rue;
 	}
@@ -71,13 +98,6 @@ public class Adresse {
 	}
 	
 
-	public Entite getEntite() {
-		return entite;
-	}
-
-	public void setEntite(Entite entite) {
-		this.entite = entite;
-	}
 
 	@Override
 	public String toString() {

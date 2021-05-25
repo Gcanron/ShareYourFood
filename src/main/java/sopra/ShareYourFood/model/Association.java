@@ -24,6 +24,13 @@ public class Association extends Entite {
 		this.justificatif = justificatif;
 	}
 
+	public Association(String nom, boolean donneur, boolean beneficiaire, String numeroAssociation,
+			String justificatif) {
+		super(nom, donneur, beneficiaire);
+		this.numeroAssociation = numeroAssociation;
+		this.justificatif = justificatif;
+	}
+
 	public String getNumeroAssociation() {
 		return numeroAssociation;
 	}
