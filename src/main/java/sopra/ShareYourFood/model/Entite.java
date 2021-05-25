@@ -3,6 +3,7 @@ package sopra.ShareYourFood.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -29,16 +30,16 @@ public class Entite {
 	@Column(name = "beneficiaire", length = 255)
 	private boolean beneficiaire;
 	
-	@OneToMany(mappedBy = "entite")
+	@OneToMany(mappedBy = "entite", cascade = CascadeType.ALL)
 	private List<Don> dons = new ArrayList<Don>();
 	
-	@OneToMany(mappedBy = "entite")
+	@OneToMany(mappedBy = "entite", cascade = CascadeType.ALL)
 	private List<Adresse> adresses = new ArrayList<Adresse>();
 	
-	@OneToMany(mappedBy = "entite")
+	@OneToMany(mappedBy = "entite", cascade = CascadeType.ALL)
 	private List<Demande> demandes = new ArrayList<Demande>();
 	
-	@OneToMany(mappedBy = "entite")
+	@OneToMany(mappedBy = "entite", cascade = CascadeType.ALL)
 	private List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 	
 	
@@ -64,6 +65,38 @@ public class Entite {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+	public List<Don> getDons() {
+		return dons;
+	}
+
+//	public void setDons(List<Don> dons) {
+//		this.dons = dons;
+//	}
+
+	public List<Adresse> getAdresses() {
+		return adresses;
+	}
+
+//	public void setAdresses(List<Adresse> adresses) {
+//		this.adresses = adresses;
+//	}
+
+	public List<Demande> getDemandes() {
+		return demandes;
+	}
+
+//	public void setDemandes(List<Demande> demandes) {
+//		this.demandes = demandes;
+//	}
+
+	public List<Utilisateur> getUtilisateurs() {
+		return utilisateurs;
+	}
+
+//	public void setUtilisateurs(List<Utilisateur> utilisateurs) {
+//		this.utilisateurs = utilisateurs;
+//	}
 	public boolean isDonneur() {
 		return donneur;
 	}
@@ -75,6 +108,26 @@ public class Entite {
 	}
 	public void setBeneficiaire(boolean beneficiaire) {
 		this.beneficiaire = beneficiaire;
+	}
+
+	public void addAdresse(Adresse adresse) {
+		this.adresses.add(adresse);
+		adresse.setEntite(this);
+	}
+
+	public void addDon(Don don) {
+		this.dons.add(don);
+		don.setEntite(this);
+	}
+
+	public void addDemande(Demande demande) {
+		this.demandes.add(demande);
+		demande.setEntite(this);
+	}
+
+	public void addUtilisateur(Utilisateur utilisateur) {
+		this.utilisateurs.add(utilisateur);
+		utilisateur.setEntite(this);
 	}
 	
 

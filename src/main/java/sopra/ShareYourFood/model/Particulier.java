@@ -24,6 +24,12 @@ public class Particulier extends Entite {
 		this.age = age;
 	}
 
+	public Particulier(String nom, boolean donneur, boolean beneficiaire, String prenom, Integer age) {
+		super(nom, donneur, beneficiaire);
+		this.prenom = prenom;
+		this.age = age;
+	}
+
 	public String getPrenom() {
 		return prenom;
 	}
