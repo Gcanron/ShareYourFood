@@ -92,6 +92,7 @@ public class Application {
 	}
 	
 
+
 	public static void setInstance(Application instance) {
 		Application.instance = instance;
 	}

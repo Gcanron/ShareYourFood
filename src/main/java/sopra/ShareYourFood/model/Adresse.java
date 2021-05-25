@@ -57,17 +57,6 @@ public class Adresse {
 		return rue;
 	}
 
-		public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Don getDon() {
-		return don;
-	}
-
-	public void setDon(Don don) {
-		this.don = don;
-	}
 
 	public void setRue(String rue) {
 		this.rue = rue;
@@ -92,13 +81,6 @@ public class Adresse {
 	}
 	
 
-	public Entite getEntite() {
-		return entite;
-	}
-
-	public void setEntite(Entite entite) {
-		this.entite = entite;
-	}
 
 	@Override
 	public String toString() {
