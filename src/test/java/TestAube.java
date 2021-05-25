@@ -1,26 +1,47 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Adresse;
 import sopra.ShareYourFood.model.Association;
 import sopra.ShareYourFood.model.Categorie;
 import sopra.ShareYourFood.model.Demande;
 import sopra.ShareYourFood.model.Destinataire;
 import sopra.ShareYourFood.model.Don;
+import sopra.ShareYourFood.model.Entite;
 import sopra.ShareYourFood.model.Entreprise;
 import sopra.ShareYourFood.model.Particulier;
 import sopra.ShareYourFood.model.Utilisateur;
+import sopra.ShareYourFood.repository.IAdresseRepository;
+import sopra.ShareYourFood.repository.IDemandeRepository;
+import sopra.ShareYourFood.repository.IDonRepository;
 import sopra.ShareYourFood.repository.IEntiteRepository;
+import sopra.ShareYourFood.repository.ILotRepository;
+import sopra.ShareYourFood.repository.IMessageRepository;
+import sopra.ShareYourFood.repository.IProduitLotRepository;
+import sopra.ShareYourFood.repository.IProduitRepository;
+import sopra.ShareYourFood.repository.IUtilisateurRepository;
 
 public class TestAube {
 
+	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:application-context.xml");
+
+	IDemandeRepository demandeRepo = context.getBean(IDemandeRepository.class);
+	IDonRepository donRepo = context.getBean(IDonRepository.class);
+	IEntiteRepository entiteRepo = context.getBean(IEntiteRepository.class);
+	ILotRepository lotRepo = context.getBean(ILotRepository.class);
+	IProduitRepository produitRepo = context.getBean(IProduitRepository.class);
+	IUtilisateurRepository utilisateurRepo = context.getBean(IUtilisateurRepository.class);
+	IMessageRepository messageRepo = context.getBean(IMessageRepository.class);
+	IAdresseRepository adresseRepo = context.getBean(IAdresseRepository.class);
+	IProduitLotRepository produitLotRepo = context.getBean(IProduitLotRepository.class);
+
 	@Test
 	public void CreateParticulier() {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Particulier aubeEntite = new Particulier("aubeline", 28);
 		aubeEntite.setNom("PECQUE");
@@ -28,15 +49,17 @@ public class TestAube {
 		aubeEntite.setBeneficiaire(false);
 		aubeEntite = (Particulier) entiteRepo.save(aubeEntite);
 
-		Particulier aubeEntiteFind = (Particulier) entiteRepo.findById(aubeEntite.getId());
-		Assert.assertEquals("aubeline", aubeEntiteFind.getPrenom());
-		Assert.assertEquals("PECQUE", aubeEntiteFind.getNom());
-		Assert.assertEquals(true, aubeEntiteFind.isDonneur());
-		Assert.assertEquals(false, aubeEntiteFind.isBeneficiaire());
+		Optional<Entite> aubeEntiteFind = entiteRepo.findById(aubeEntite.getId());
+		if (aubeEntiteFind.isPresent()) {
+			Assert.assertEquals("PECQUE", aubeEntiteFind.get().getNom());
+		} else {
+			System.out.println("Not found");
+		}
 
-		entiteRepo.delete(aubeEntiteFind);
+		entiteRepo.delete(aubeEntite);
 
 		Particulier aubeEntite2 = new Particulier("PECQUE", true, false, "Aubeline", 28);
+
 		aubeEntite2 = (Particulier) entiteRepo.save(aubeEntite2);
 
 		entiteRepo.delete(aubeEntite2);
@@ -45,7 +68,7 @@ public class TestAube {
 
 	@Test
 	public void CreateAssociation() {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
+		
 
 		Association croixRougeEntite = new Association("FR123456789", "justificatif1");
 		croixRougeEntite.setNom("La Croix Rouge");
@@ -53,20 +76,22 @@ public class TestAube {
 		croixRougeEntite.setBeneficiaire(true);
 		croixRougeEntite = (Association) entiteRepo.save(croixRougeEntite);
 
-		Association croixRougeEntiteFind = (Association) entiteRepo.findById(croixRougeEntite.getId());
-		Assert.assertEquals("La Croix Rouge", croixRougeEntiteFind.getNom());
-		Assert.assertEquals("FR123456789", croixRougeEntiteFind.getNumeroAssociation());
-		Assert.assertEquals("justificatif1", croixRougeEntiteFind.getJustificatif());
-		Assert.assertEquals(true, croixRougeEntiteFind.isDonneur());
-		Assert.assertEquals(true, croixRougeEntiteFind.isBeneficiaire());
+		Optional<Entite> croixRougeEntiteFind = entiteRepo.findById(croixRougeEntite.getId());
+		if (croixRougeEntiteFind.isPresent()) {
+			Assert.assertEquals("La Croix Rouge", croixRougeEntiteFind.get().getNom());
+			Assert.assertEquals("FR123456789", ((Association) croixRougeEntiteFind.get()).getNumeroAssociation());
+			Assert.assertEquals("justificatif1", ((Association) croixRougeEntiteFind.get()).getJustificatif());
+			Assert.assertEquals(true, croixRougeEntiteFind.get().isDonneur());
+			Assert.assertEquals(true, croixRougeEntiteFind.get().isBeneficiaire());
+		} else {
+			System.out.println("Not found");
+		}
 
-		entiteRepo.delete(croixRougeEntiteFind);
-
+		entiteRepo.delete(croixRougeEntite);
 	}
 
 	@Test
 	public void CreateEntreprise() {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
 
 		Entreprise leclerc = new Entreprise("5486935JH14S", Categorie.GRANDE_SURFACE);
 		leclerc.setNom("Leclerc");
@@ -74,19 +99,23 @@ public class TestAube {
 		leclerc.setBeneficiaire(false);
 		leclerc = (Entreprise) entiteRepo.save(leclerc);
 
-		Entreprise leclercFind = (Entreprise) entiteRepo.findById(leclerc.getId());
-		Assert.assertEquals("5486935JH14S", leclercFind.getSiret());
-		Assert.assertEquals(Categorie.GRANDE_SURFACE, leclercFind.getCategorie());
-		Assert.assertEquals("Leclerc", leclercFind.getNom());
-		Assert.assertEquals(true, leclercFind.isDonneur());
-		Assert.assertEquals(false, leclercFind.isBeneficiaire());
+		Optional<Entite> leclercFind = entiteRepo.findById(leclerc.getId());
+		if (leclercFind.isPresent()) {
+			Assert.assertEquals("5486935JH14S", ((Entreprise) leclercFind.get()).getSiret());
+			Assert.assertEquals(Categorie.GRANDE_SURFACE, ((Entreprise) leclercFind.get()).getCategorie());
+			Assert.assertEquals("Leclerc", leclercFind.get().getNom());
+			Assert.assertEquals(true, leclercFind.get().isDonneur());
+			Assert.assertEquals(false, leclercFind.get().isBeneficiaire());
+		} else {
+			System.out.println("Not found");
+		}
 
-		entiteRepo.delete(leclercFind);
+		entiteRepo.delete(leclerc);
 	}
 
 	@Test
 	public void updateParticulier() {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
+		
 
 		Particulier aubeEntite = new Particulier("aubeline", 28);
 		aubeEntite.setNom("PECQUE");
@@ -94,18 +123,17 @@ public class TestAube {
 		aubeEntite.setBeneficiaire(false);
 		aubeEntite = (Particulier) entiteRepo.save(aubeEntite);
 
-		Particulier aubeEntite2 = (Particulier) entiteRepo.findById(aubeEntite.getId());
-		aubeEntite2.setPrenom("aubeliiiiine");
-		aubeEntite2 = (Particulier) entiteRepo.save(aubeEntite2);
+		aubeEntite.setPrenom("aubeliiiiine");
+		aubeEntite = (Particulier) entiteRepo.save(aubeEntite);
 
-		Assert.assertEquals("aubeliiiiine", aubeEntite2.getPrenom());
+		Assert.assertEquals("aubeliiiiine", aubeEntite.getPrenom());
 
-		entiteRepo.delete(aubeEntite2);
+		entiteRepo.delete(aubeEntite);
 	}
 
 	@Test
 	public void addAdresseEntite() {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
+		
 
 		Particulier aubeEntite = new Particulier("aubeline", 28);
 		aubeEntite.setNom("PECQUE");
@@ -113,7 +141,7 @@ public class TestAube {
 		aubeEntite.setBeneficiaire(false);
 
 		Adresse adrAube = new Adresse("500 impasse Olympie", "Batiment A", "64000", "Pau");
-		aubeEntite.addAdresse(adrAube);
+		//aubeEntite.addAdresse(adrAube);
 		Particulier aubeEntite2 = (Particulier) entiteRepo.save(aubeEntite);
 
 		entiteRepo.delete(aubeEntite2);
@@ -122,7 +150,7 @@ public class TestAube {
 
 	@Test
 	public void addDonEntite() throws ParseException {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
+		
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -133,7 +161,7 @@ public class TestAube {
 
 		Adresse adrAube = new Adresse("1 impasse Olympie", "Batiment A", "64000", "Pau");
 
-		aubeEntite.addAdresse(adrAube);
+		//aubeEntite.addAdresse(adrAube);
 
 		Don donAubeline = new Don();
 		donAubeline.setDateDeMiseEnLigne(sdf.parse("24/05/2021"));
@@ -151,8 +179,7 @@ public class TestAube {
 
 	@Test
 	public void addDemandeEntite() throws ParseException {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 		Particulier aubeEntite = new Particulier("aubeline", 28);
@@ -162,7 +189,7 @@ public class TestAube {
 
 		Adresse adrAube = new Adresse("999 impasse Olympie", "Batiment A", "64000", "Pau");
 
-		aubeEntite.addAdresse(adrAube);
+	//	aubeEntite.addAdresse(adrAube);
 
 		Demande jeVeuxDesPates = new Demande();
 		jeVeuxDesPates.setDtDemande(sdf.parse("24/05/2021"));
@@ -176,7 +203,8 @@ public class TestAube {
 
 	@Test
 	public void addUtilisateurEntite() {
-		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
+		
+
 
 		Association croixRougeEntite = new Association("FR123456789", "justificatif1");
 		croixRougeEntite.setNom("La Croix Rouge");
@@ -185,7 +213,7 @@ public class TestAube {
 		croixRougeEntite = (Association) entiteRepo.save(croixRougeEntite);
 
 		Adresse adrCroixRouge = new Adresse("9 avenue Gambetta", null, "13001", "Marseille");
-		croixRougeEntite.addAdresse(adrCroixRouge);
+	//	croixRougeEntite.addAdresse(adrCroixRouge);
 
 		Utilisateur benevoleCroixRouge1 = new Utilisateur();
 		benevoleCroixRouge1.setPseudo("Toto65");
@@ -199,27 +227,5 @@ public class TestAube {
 
 		entiteRepo.delete(croixRougeEntite2);
 	}
-
-//	@Test
-//	public void EntiteGetAdresse() {
-//		
-//		IEntiteRepository entiteRepo = Application.getInstance().getEntiteRepo();
-//
-//		Particulier aubeEntite = new Particulier("aubeline", 28);
-//		aubeEntite.setNom("pecque");
-//		
-//		Adresse adrAube = new Adresse("01 impasse Olympie", "Batiment A", "64000", "Pau");
-//		aubeEntite.addAdresse(adrAube);
-//		
-//		aubeEntite = (Particulier) entiteRepo.save(aubeEntite);
-//		
-//		Particulier aubeEntiteFind = (Particulier) entiteRepo.findByNom("pecque");
-//		for (Adresse adr : aubeEntiteFind.getAdresses()) {
-//			if () {
-//				
-//			}
-//		}
-//		
-//	}
 
 }

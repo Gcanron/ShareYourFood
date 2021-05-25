@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "Don")
@@ -23,26 +23,28 @@ public class Don {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "date_de_mise_en_ligne", length = 255)
-	private Date dateDeMiseEnLigne ;
+	private Date dateDeMiseEnLigne;
 	@Column(name = "créneau", length = 255)
 	private String creneau;
 	@Column(name = "commentaire", length = 255)
 	private String commentaire;
 	@Column(name = "destinataire", length = 255)
 	private Destinataire destinataire;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "entite_id")
 	private Entite entite;
-	
+
 	@OneToMany(mappedBy = "don", cascade = CascadeType.ALL)
 	private List<Lot> lot = new ArrayList<Lot>();
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "adresse_id")
 	private Adresse adresse;
-	
+
 	public Don() {
 		super();
 	}
@@ -54,38 +56,46 @@ public class Don {
 		this.commentaire = commentaire;
 		this.destinataire = destinataire;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Date getDateDeMiseEnLigne() {
 		return dateDeMiseEnLigne;
 	}
+
 	public void setDateDeMiseEnLigne(Date dateDeMiseEnLigne) {
 		this.dateDeMiseEnLigne = dateDeMiseEnLigne;
 	}
+
 	public String getCreneau() {
 		return creneau;
 	}
+
 	public void setCreneau(String creneau) {
 		this.creneau = creneau;
 	}
+
 	public String getCommentaire() {
 		return commentaire;
 	}
+
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
+
 	public Destinataire getDestinataire() {
 		return destinataire;
 	}
+
 	public void setDestinataire(Destinataire destinataire) {
 		this.destinataire = destinataire;
 	}
-
 
 	public Entite getEntite() {
 		return entite;

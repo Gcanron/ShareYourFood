@@ -7,26 +7,29 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
-@Table(name="Message")
+@Table(name = "Message")
 public class Message {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "contenu")
 	private String contenu;
 	@Column(name = "donneur")
 	private Boolean donneur;
 	@ManyToOne
-	@JoinColumn(name="demande_id")
+	@JoinColumn(name = "demande_id")
 	private Demande demande;
-	
+
 	public Message() {
 		super();
 	}
-	
+
 	public Message(String contenu, Boolean donneur) {
 		super();
 		this.contenu = contenu;
@@ -65,9 +68,12 @@ public class Message {
 		this.demande = demande;
 	}
 
+	public int getVersion() {
+		return version;
+	}
 
-	
-	
-	
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 }

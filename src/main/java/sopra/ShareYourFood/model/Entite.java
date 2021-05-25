@@ -110,11 +110,6 @@ public class Entite {
 		this.beneficiaire = beneficiaire;
 	}
 
-	public void addAdresse(Adresse adresse) {
-		this.adresses.add(adresse);
-		adresse.setEntite(this);
-	}
-
 	public void addDon(Don don) {
 		this.dons.add(don);
 		don.setEntite(this);
@@ -128,6 +123,11 @@ public class Entite {
 	public void addUtilisateur(Utilisateur utilisateur) {
 		this.utilisateurs.add(utilisateur);
 		utilisateur.setEntite(this);
+	}
+	
+	public void addAdresse(Adresse adresse) {
+		this.adresses.add(adresse);
+		adresse.setEntite(this);
 	}
 	
 

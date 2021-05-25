@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name = "Produit")
@@ -16,6 +17,8 @@ public class Produit {
 	@Id
 	@Column(name = "nom")
 	private String nom;
+	@Version
+	private int version;
 	@Column(name = "type")
 	private Type type;
 	@OneToMany(mappedBy = "produit")
@@ -49,5 +52,12 @@ public class Produit {
 		this.produitLots = produitLots;
 	}
 
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 }
