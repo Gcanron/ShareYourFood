@@ -36,7 +36,7 @@ public class Lot {
 	private List<Demande> demandes = new ArrayList<Demande>();
 	@OneToMany(mappedBy = "lot")
 	private List<ProduitLot> produitLots = new ArrayList<ProduitLot>();
-	
+
 	public Lot() {
 		super();
 	}
@@ -89,8 +89,6 @@ public class Lot {
 		this.photo = photo;
 	}
 
-	
-
 	public Statut getStatut() {
 		return statut;
 	}
@@ -110,6 +108,7 @@ public class Lot {
 	public List<ProduitLot> getProduitLots() {
 		return produitLots;
 	}
+
 	public void addProduitLot(ProduitLot produitLot) {
 		this.produitLots.add(produitLot);
 	}
@@ -129,7 +128,5 @@ public class Lot {
 	public void setProduitLots(List<ProduitLot> produitLots) {
 		this.produitLots = produitLots;
 	}
-
-
 
 }

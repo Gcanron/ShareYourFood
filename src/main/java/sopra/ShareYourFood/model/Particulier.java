@@ -45,5 +45,7 @@ public class Particulier extends Entite {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
+	
+	
 
 }

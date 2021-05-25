@@ -11,9 +11,9 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name="utilisateur")
+@Table(name = "utilisateur")
 public class Utilisateur {
-	
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -32,11 +32,11 @@ public class Utilisateur {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "entite_id")
 	private Entite entite;
-	
+
 	public Utilisateur() {
 		super();
 	}
-	
+
 	public Utilisateur(String pseudo, String mail, String motDePasse, Boolean messagerieActivation) {
 		super();
 		this.pseudo = pseudo;
@@ -101,9 +101,12 @@ public class Utilisateur {
 		this.entite = entite;
 	}
 
-	
-	
-	
-	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 
 }
