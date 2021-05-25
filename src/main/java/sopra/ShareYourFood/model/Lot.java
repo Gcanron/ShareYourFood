@@ -109,6 +109,7 @@ public class Lot {
 
 	public List<ProduitLot> getProduitLots() {
 		return produitLots;
+	}
 	public void addProduitLot(ProduitLot produitLot) {
 		this.produitLots.add(produitLot);
 	}

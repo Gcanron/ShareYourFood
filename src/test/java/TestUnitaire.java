@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import sopra.ShareYourFood.Application;
 import sopra.ShareYourFood.model.Lot;
@@ -17,6 +18,10 @@ public class TestUnitaire {
 
 	@Test
 	public void testProduitFindById() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		Produit yaourt = new Produit();
 		yaourt.setNom("yaourt");
 		yaourt.setType(Type.valueOf("FRAIS"));
@@ -31,6 +36,10 @@ public class TestUnitaire {
 	}
 	@Test
 	public void testProduitFindAll() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		Produit yaourt = new Produit();
 		yaourt.setNom("yaourt");
 		yaourt.setType(Type.valueOf("FRAIS"));
@@ -52,6 +61,10 @@ public class TestUnitaire {
 	}
 	@Test
 	public void testProduitLotFindById() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		ProduitLot yaourt_lot1 = new ProduitLot();
 		yaourt_lot1.setQuantite(1000L);
 		
@@ -68,6 +81,10 @@ public class TestUnitaire {
 	}
 	@Test
 	public void testProduitLotFindAll() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		ProduitLot yaourt_lot1 = new ProduitLot();
 		yaourt_lot1.setQuantite(1000L);
 
@@ -93,6 +110,10 @@ public class TestUnitaire {
 	}	
 	@Test
 	public void testLotFindById() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		Lot lotNumber1 = new Lot();
 		lotNumber1.setNom("Yaourt à gogo");
 		lotNumber1.setVolume(400L);
@@ -108,6 +129,10 @@ public class TestUnitaire {
 	}
 	@Test
 	public void testLotFindAll() {
+		
+		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath:application-context.xml");
+
 		Lot lotNumber1 = new Lot();
 		lotNumber1.setNom("Yaourt à gogo");
 		lotNumber1.setVolume(400L);

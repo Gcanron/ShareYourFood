@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 
 @Entity
@@ -23,6 +24,8 @@ public class Don {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Version
+	private int version;
 	@Column(name = "date_de_mise_en_ligne", length = 255)
 	private Date dateDeMiseEnLigne ;
 	@Column(name = "créneau", length = 255)
