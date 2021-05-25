@@ -46,29 +46,7 @@ public class Adresse {
 	}
 	
 	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Entite getEntite() {
-		return entite;
-	}
-
-	public void setEntite(Entite entite) {
-		this.entite = entite;
-	}
-
-	public Don getDon() {
-		return don;
-	}
-
-	public void setDon(Don don) {
-		this.don = don;
-	}
+	
 
 	public String getRue() {
 		return rue;

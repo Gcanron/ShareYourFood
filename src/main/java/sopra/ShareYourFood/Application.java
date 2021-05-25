@@ -54,14 +54,6 @@ public class Application {
 		return produitLotRepo;
 	}
 
-	
-	public IMessageRepository getMessageRepo() {
-		return messageRepo;
-	}
-
-	public IAdresseRepository getAdresseRepo() {
-		return adresseRepo;
-	}
 
 	public EntityManagerFactory getEmf() {
 		return emf;
