@@ -36,20 +36,21 @@ public class TestSeif {
 	ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
 			"classpath:application-context.xml");
 	
-	IDemandeRepository demandeRepo = context.getBean(IDemandeRepository .class);
-	IDonRepository donRepo = context.getBean(IDonRepository .class);
-	IEntiteRepository entiteRepo = context.getBean(IEntiteRepository .class);
-	ILotRepository lotRepo = context.getBean(ILotRepository .class);
-	IProduitRepository produitRepo = context.getBean(IProduitRepository .class);
-	IUtilisateurRepository utilisateurRepo = context.getBean(IUtilisateurRepository .class);
-	IMessageRepository messageRepo = context.getBean(IMessageRepository .class);
-	IAdresseRepository adresseRepo = context.getBean(IAdresseRepository .class);
-	IProduitLotRepository produitLotRepo = context.getBean(IProduitLotRepository .class);
+	IDemandeRepository demandeRepo = context.getBean(IDemandeRepository.class);
+	IDonRepository donRepo = context.getBean(IDonRepository.class);
+	IEntiteRepository entiteRepo = context.getBean(IEntiteRepository.class);
+	ILotRepository lotRepo = context.getBean(ILotRepository.class);
+	IProduitRepository produitRepo = context.getBean(IProduitRepository.class);
+	IUtilisateurRepository utilisateurRepo = context.getBean(IUtilisateurRepository.class);
+	IMessageRepository messageRepo = context.getBean(IMessageRepository.class);
+	IAdresseRepository adresseRepo = context.getBean(IAdresseRepository.class);
+	IProduitLotRepository produitLotRepo = context.getBean(IProduitLotRepository.class);
 	
 	
 	@Test
 	public void utilisateurCreate() {
-			
+		
+		
 		Utilisateur cocoDu06 = new Utilisateur("Coco_du_06", "cocodu06@gmail.com","azerty", true);
 		cocoDu06.setRole(Role.MEMBRE);
 		
