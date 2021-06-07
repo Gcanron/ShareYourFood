@@ -213,6 +213,12 @@ public class TestJpaWithDao {
 		
 		List<Lot> lots = lotRepo.findAllDonneByEntiteById(6L);
 		System.out.println(lots);
+		
+		List<Lot> lotsDemande = lotRepo.findAllDisponibleEnAttenteByEntiteById(6L);
+		System.out.println(lotsDemande);
+		
+		List<Lot> lotsDemande2 = lotRepo.findAllDisponibleAccepteByEntiteById(6L);
+		System.out.println(lotsDemande2);
 
 
 	}
