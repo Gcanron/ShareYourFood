@@ -5,13 +5,15 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 @Entity
-@Table(name = "Produit")
+@Table(name = "produit")
 
 public class Produit {
 	@Id
@@ -19,6 +21,7 @@ public class Produit {
 	private String nom;
 	@Version
 	private int version;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "type")
 	private Type type;
 	@OneToMany(mappedBy = "produit")

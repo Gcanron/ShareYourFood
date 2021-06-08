@@ -2,6 +2,6 @@ package sopra.ShareYourFood.model;
 
 public enum StatutNotif {
 	
-	ACCEPTER, REFUSER, ARCHIVER
+	ACCEPTER, REFUSER, ARCHIVER, EN_ATTENTE
 	
 }
