@@ -2,6 +2,8 @@ package sopra.ShareYourFood.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ public class Utilisateur {
 	private String motDePasse;
 	@Column(name = "messagerie_activation")
 	private Boolean messagerieActivation;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "role")
 	private Role role;
 	@ManyToOne(fetch = FetchType.LAZY)

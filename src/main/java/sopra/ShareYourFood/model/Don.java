@@ -7,6 +7,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,6 +33,7 @@ public class Don {
 	private String creneau;
 	@Column(name = "commentaire", length = 255)
 	private String commentaire;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "destinataire", length = 255)
 	private Destinataire destinataire;
 

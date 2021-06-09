@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -27,6 +29,7 @@ public class Demande {
 	@Column(name="dt_demande")
 	private Date dtDemande;
 	@Column(name="statut_notif")
+	@Enumerated(EnumType.STRING)
 	private StatutNotif statutNotif;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "entite_id")
