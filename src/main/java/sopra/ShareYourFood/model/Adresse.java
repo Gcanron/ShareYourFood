@@ -116,5 +116,6 @@ public class Adresse {
 		return "Adresse [rue=" + rue + ", complement=" + complement + ", codePostal=" + codePostal + ", ville=" + ville
 				+ "]";
 	}
+	
 
 }
